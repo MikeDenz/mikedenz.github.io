@@ -36,7 +36,7 @@
 
       <ul class="nav-links">
         <li><a href="#about" data-i18n="nav.about">SOBRE MÍ</a></li>
-        <li><a href="#reel" data-i18n="nav.showreel">VIDEBOOK</a></li>
+        <li><a href="#reel" data-i18n="nav.showreel">VIDEOBOOK</a></li>
         <li><a href="#gallery" data-i18n="nav.portfolio">GALERÍA</a></li>
         <li><a href="#cv" data-i18n="nav.resume">CURRÍCULUM</a></li>
         <li><a href="#contact" data-i18n="nav.contact">CONTACTO</a></li>
@@ -51,7 +51,7 @@
     <div class="hero-text">
       <h2 data-i18n="hero.title">ACTOR</h2>
       <p data-i18n="hero.subtitle">Expresando historias con verdad y presencia</p>
-      <a href="#reel" class="btn" data-i18n="hero.cta">VER VIDEBOOK</a>
+      <a href="#reel" class="btn" data-i18n="hero.cta">VER VIDEOBOOK</a>
     </div>
   </section>
 
@@ -72,20 +72,22 @@
     </p>
   </section>
 
-  <!-- SHOWREEL -->
-  <section id="reel" class="reel">
-    <h2 data-i18n="reel.title">VIDEBOOK</h2>
-    <div class="video-container">
-      <div class="video-wrapper">
-        <iframe src="https://player.vimeo.com/video/1126444753" frameborder="0" allowfullscreen></iframe>
-      </div>
+
+<!-- SHOWREEL -->
+<section id="reel" class="reel">
+  <h2 data-i18n="reel.title">VIDEOBOOK</h2>
+  <div class="video-container">
+    <div class="video-wrapper" style="display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.25)">
+    <span style="font-family:'Playfair Display',serif;font-size:1.6rem;letter-spacing:2px;color:var(--accent)" data-i18n="reel.coming"></span>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- PORTFOLIO -->
   <section id="gallery" class="gallery">
     <h2 data-i18n="gallery.title">GALERÍA</h2>
     <div class="grid">
+      <img src="foto 6.jpg" alt="Retrato profesional 5" loading="lazy">
       <img src="foto1.jpg" alt="Retrato profesional 1" loading="lazy">
       <img src="foto2.jpg" alt="Retrato profesional 2" loading="lazy">
       <img src="foto3.jpg" alt="Retrato profesional 3" loading="lazy">
@@ -258,12 +260,12 @@
     const dict = {
       es: {
         'skip':'SALTAR AL CONTENIDO',
-        'nav.about':'SOBRE MÍ','nav.showreel':'VIDEBOOK','nav.portfolio':'GALERÍA','nav.resume':'CURRÍCULUM','nav.contact':'CONTACTO',
-        'hero.title':'ACTOR','hero.subtitle':'Expresando historias con verdad y presencia','hero.cta':'VER VIDEBOOK',
+        'nav.about':'SOBRE MÍ','nav.showreel':'VIDEOBOOK','nav.portfolio':'GALERÍA','nav.resume':'CURRÍCULUM','nav.contact':'CONTACTO',
+        'hero.title':'ACTOR','hero.subtitle':'Expresando historias con verdad y presencia','hero.cta':'VER VIDEOBOOK',
         'quote.text':'La vida imita al arte mucha más de lo que el arte imita a la vida','quote.author':'OSCAR WILDE',
         'about.title':'SOBRE MÍ',
         'about.text':'Desde pequeño siempre me ha gustado imitar a los personajes que veía en la pantalla, desde los dibujos animados hasta Murdock del Equipo A. Sin darme cuenta, lo que más me divertía era jugar con la emoción, así que decidí apuntarme a clases de teatro y desde entonces no he dejado de formarme haciendo lo que más me gusta: interpretar. Ahora, entre mi rincón industrial favorito (Avilés) y Madrid, me muevo para un día poder cumplir mi sueño: vivir de esta profesión.',
-        'reel.title':'VIDEBOOK','gallery.title':'GALERÍA',
+        'reel.title':'VIDEOBOOK','gallery.title':'GALERÍA',
         'cv.title':'CURRÍCULUM',
         'cv.label.email':'Email:','cv.label.tel':'Tel:','cv.label.residence':'Residencia:',
         'cv.section.screen':'TELEVISIÓN / AUDIOVISUAL','cv.section.theatre':'TEATRO','cv.section.training':'FORMACIÓN','cv.section.languages':'IDIOMAS','cv.section.skills':'HABILIDADES',
@@ -288,7 +290,8 @@
         'cv.download':'DESCARGAR CV EN PDF','cv.view':'VER ONLINE',
         'contact.title':'CONTACTO',
         'footer.rights':'TODOS LOS DERECHOS RESERVADOS',
-        'cta':'BOOK ME'
+        'cta':'BOOK ME',
+        'reel.coming':'PRÓXIMAMENTE',
       },
       en: {
         'skip':'SKIP TO CONTENT',
@@ -322,7 +325,8 @@
         'cv.download':'DOWNLOAD RESUME PDF','cv.view':'VIEW ONLINE',
         'contact.title':'CONTACT',
         'footer.rights':'ALL RIGHTS RESERVED',
-        'cta':'BOOK ME'
+        'cta':'BOOK ME',
+        'reel.coming':'COMING SOON',
       }
     };
 
