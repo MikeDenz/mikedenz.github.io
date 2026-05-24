@@ -47,11 +47,10 @@
   </header>
 
   <!-- HERO -->
-  <section id="top" class="hero">
+<section id="top" class="hero" style="background-image: url('portada.jpg'); background-size: cover; background-position: upper 500px; background-repeat: no-repeat;">
     <div class="hero-text">
       <h2 data-i18n="hero.title">ACTOR</h2>
-      <p data-i18n="hero.subtitle">Expresando historias con verdad y presencia</p>
-      <a href="#reel" class="btn" data-i18n="hero.cta">VER VIDEOBOOK</a>
+<a href="#reel" class="btn" data-i18n="hero.cta" style="background-color: #e4db8b; color: #000000; border-color: #D32F2F;">VER VIDEOBOOK</a>
     </div>
   </section>
 
@@ -87,12 +86,17 @@
   <section id="gallery" class="gallery">
     <h2 data-i18n="gallery.title">GALERÍA</h2>
     <div class="grid">
-      <img src="foto 6.jpg" alt="Retrato profesional 5" loading="lazy">
+      <img src="foto10.jpg" alt="Retrato profesional 4" loading="lazy">
+      <img src="foto12.jpg" alt="Retrato profesional 4" loading="lazy">
+      <img src="foto11.jpg" alt="Retrato profesional 4" loading="lazy">
+      <img src="foto9.jpg" alt="Retrato profesional 4" loading="lazy">
+      <img src="foto8.jpg" alt="Retrato profesional 8" loading="lazy">
+      <img src="foto5.jpg" alt="Retrato profesional 5" loading="lazy">
+      <img src="foto7.jpg" alt="Retrato profesional 7" loading="lazy">
       <img src="foto1.jpg" alt="Retrato profesional 1" loading="lazy">
       <img src="foto2.jpg" alt="Retrato profesional 2" loading="lazy">
-      <img src="foto3.jpg" alt="Retrato profesional 3" loading="lazy">
-      <img src="foto4.jpg" alt="Retrato profesional 4" loading="lazy">
-      <img src="foto5.jpg" alt="Retrato profesional 5" loading="lazy">
+      <img src="foto6.jpg" alt="Retrato profesional 6" loading="lazy">
+
     </div>
   </section>
 
@@ -109,11 +113,6 @@
 
     <div class="cv-table">
       <h3 data-i18n="cv.section.screen">TELEVISIÓN / AUDIOVISUAL</h3>
-      <div class="cv-row">
-        <div class="cv-project" data-i18n="cv.screen.p1.title">Cerrar sesión</div>
-        <div class="cv-role" data-i18n="cv.screen.p1.role">Leo</div>
-        <div class="cv-info" data-i18n="cv.screen.p1.info">Director: Mike Denz — Independiente</div>
-      </div>
       <div class="cv-row">
         <div class="cv-project" data-i18n="cv.screen.p2.title">El actor</div>
         <div class="cv-role" data-i18n="cv.screen.p2.role">Miguel</div>
@@ -149,6 +148,16 @@
 
       <h3 data-i18n="cv.section.training">FORMACIÓN</h3>
       <div class="cv-row">
+        <div class="cv-project" data-i18n="cv.train.studio.title">Interpretación Actors Studio</div>
+        <div class="cv-role"></div>
+        <div class="cv-info" data-i18n="cv.train.studio.info">Javier Molina</div>
+      </div>
+      <div class="cv-row">
+        <div class="cv-project" data-i18n="cv.train.chejov.title">Técnica Chèjov</div>
+        <div class="cv-role"></div>
+        <div class="cv-info" data-i18n="cv.train.chejov.info">Lidia Otón</div>
+      </div>
+      <div class="cv-row">
         <div class="cv-project" data-i18n="cv.train.p1.title">Improvisación e interpretación ante la cámara</div>
         <div class="cv-role"></div>
         <div class="cv-info" data-i18n="cv.train.p1.info">Natalia Cooper</div>
@@ -157,11 +166,6 @@
         <div class="cv-project" data-i18n="cv.train.p2.title">Taller teatral “Espacio Creativo”</div>
         <div class="cv-role"></div>
         <div class="cv-info" data-i18n="cv.train.p2.info">Mario Villar y Patricia Caso</div>
-      </div>
-      <div class="cv-row">
-        <div class="cv-project" data-i18n="cv.train.p3.title">Interpretación ante la cámara (Workshop online)</div>
-        <div class="cv-role"></div>
-        <div class="cv-info" data-i18n="cv.train.p3.info">Ángel Gómez, Francesco Cocco, Arantxa Domingo</div>
       </div>
       <div class="cv-row">
         <div class="cv-project" data-i18n="cv.train.p4.title">Acting Program online</div>
@@ -197,6 +201,7 @@
       </div>
 
       <h3 data-i18n="cv.section.skills">HABILIDADES</h3>
+  
       <div class="cv-row">
         <div class="cv-project" data-i18n="cv.skill.p1.title">Danza moderna y urbana</div>
         <div class="cv-role"></div>
@@ -213,17 +218,21 @@
         <div class="cv-info" data-i18n="cv.skill.p3.info">B</div>
       </div>
       <div class="cv-row">
-        <div class="cv-project" data-i18n="cv.skill.p4.title">Otros</div>
+        <div class="cv-project" data-i18n="cv.skill.p5.title">Nociones básicas de equitación</div>
         <div class="cv-role"></div>
-        <div class="cv-info" data-i18n="cv.skill.p4.info">Escalada</div>
+        <div class="cv-info"></div>
+      </div>
+      <div class="cv-row">
+        <div class="cv-project" data-i18n="cv.skill.p4.title">Nociones básicas de escalada</div>
+        <div class="cv-role"></div>
+        <div class="cv-info"></div>
       </div>
     </div>
 
-    <div class="cv-download">
-      <a href="./CV_MikeDenz_2025.pdf" download="Mike_Denz_Resume" class="btn" id="cvDownloadBtn" data-i18n="cv.download">DESCARGAR CV EN PDF</a>
+<div class="cv-download">
+      <a href="./CV_MikeDenz_2025.pdf" download="Mike_Denz_Resume" class="btn" id="cvDownloadBtn" data-i18n="cv.download" style="background-color: #e4db8b; color: #000000; border-color: #e4db8b;">DESCARGAR CV EN PDF</a>
       <a href="./CV_MikeDenz_2025.pdf" target="_blank" rel="noopener" class="btn btn-ghost" id="cvViewBtn" data-i18n="cv.view">VER ONLINE</a>
     </div>
-  </section>
 
   <!-- CONTACT -->
   <section id="contact" class="contact">
@@ -257,6 +266,7 @@
   <!-- LANGUAGE SWITCH -->
   <script>
     // Diccionario completo ES/EN (sin claves repetidas ni huecos)
+   // Diccionario completo ES/EN (sin claves repetidas ni huecos)
     const dict = {
       es: {
         'skip':'SALTAR AL CONTENIDO',
@@ -269,16 +279,16 @@
         'cv.title':'CURRÍCULUM',
         'cv.label.email':'Email:','cv.label.tel':'Tel:','cv.label.residence':'Residencia:',
         'cv.section.screen':'TELEVISIÓN / AUDIOVISUAL','cv.section.theatre':'TEATRO','cv.section.training':'FORMACIÓN','cv.section.languages':'IDIOMAS','cv.section.skills':'HABILIDADES',
-        'cv.screen.p1.title':'Cerrar sesión','cv.screen.p1.role':'Leo','cv.screen.p1.info':'Director: Mike Denz — Independiente',
         'cv.screen.p2.title':'El actor','cv.screen.p2.role':'Miguel','cv.screen.p2.info':'Director: Mike Denz — Independiente',
         'cv.screen.p3.title':'Anna (Cortometraje)','cv.screen.p3.role':'Secundario','cv.screen.p3.info':'Director: Pablo García — CISLAN',
         'cv.theatre.p1.title':'El desván','cv.theatre.p1.role':'Reparto principal','cv.theatre.p1.info':'Directores: Patricia Caso, Mario Villar — Teatro Joven Avilés',
         'cv.theatre.p2.title':'Glengarry Glen Ross','cv.theatre.p2.role':'Secundario','cv.theatre.p2.info':'Directora: Cristina Puertas — Factoría Cultural',
         'cv.theatre.p3.title':'Homenaje Van Gogh','cv.theatre.p3.role':'Secundario','cv.theatre.p3.info':'Directora: Cristina Puertas — Factoría Cultural',
         'cv.theatre.p4.title':'El enfermo imaginario','cv.theatre.p4.role':'Argán','cv.theatre.p4.info':'Directora: Cristina Puertas — Factoría Cultural',
+        'cv.train.studio.title':'Interpretación Actors Studio','cv.train.studio.info':'Javier Molina',
+        'cv.train.chejov.title':'Técnica Chèjov','cv.train.chejov.info':'Lidia Otón',
         'cv.train.p1.title':'Improvisación e interpretación ante la cámara','cv.train.p1.info':'Natalia Cooper',
         'cv.train.p2.title':'Taller teatral “Espacio Creativo”','cv.train.p2.info':'Mario Villar y Patricia Caso',
-        'cv.train.p3.title':'Interpretación ante la cámara (Workshop online)','cv.train.p3.info':'Ángel Gómez, Francesco Cocco, Arantxa Domingo',
         'cv.train.p4.title':'Acting Program online','cv.train.p4.info':'Eliana Ghen',
         'cv.train.p5.title':'Clase intensiva de técnica ante la cámara','cv.train.p5.info':'Eliana Ghen y Bernard Hiller',
         'cv.train.p6.title':'Formación actoral','cv.train.p6.info':'Cristina Puertas — La Habitación Blanca / Cuéntame un Cuadro',
@@ -286,7 +296,8 @@
         'cv.skill.p1.title':'Danza moderna y urbana','cv.skill.p1.info':'Profesor en centros escolares 2024',
         'cv.skill.p2.title':'Ballet clásico y danza contemporánea','cv.skill.p2.info':'Nivel intermedio',
         'cv.skill.p3.title':'Carné de conducir','cv.skill.p3.info':'B',
-        'cv.skill.p4.title':'Otros','cv.skill.p4.info':'Escalada',
+        'cv.skill.p5.title':'Nociones básicas de equitación',
+        'cv.skill.p4.title':'Nociones básicas de escalada',
         'cv.download':'DESCARGAR CV EN PDF','cv.view':'VER ONLINE',
         'contact.title':'CONTACTO',
         'footer.rights':'TODOS LOS DERECHOS RESERVADOS',
@@ -304,16 +315,16 @@
         'cv.title':'RESUME',
         'cv.label.email':'Email:','cv.label.tel':'Phone:','cv.label.residence':'Based in:',
         'cv.section.screen':'FILM / TELEVISION','cv.section.theatre':'THEATRE','cv.section.training':'TRAINING','cv.section.languages':'LANGUAGES','cv.section.skills':'SKILLS',
-        'cv.screen.p1.title':'Log Out','cv.screen.p1.role':'Leo','cv.screen.p1.info':'Director: Mike Denz — Independent',
         'cv.screen.p2.title':'The Actor','cv.screen.p2.role':'Miguel','cv.screen.p2.info':'Director: Mike Denz — Independent',
         'cv.screen.p3.title':'Anna (Short film)','cv.screen.p3.role':'Supporting','cv.screen.p3.info':'Director: Pablo García — CISLAN',
         'cv.theatre.p1.title':'The Attic','cv.theatre.p1.role':'Ensemble / Lead','cv.theatre.p1.info':'Directors: Patricia Caso, Mario Villar — Teatro Joven Avilés',
         'cv.theatre.p2.title':'Glengarry Glen Ross','cv.theatre.p2.role':'Supporting','cv.theatre.p2.info':'Director: Cristina Puertas — Factoría Cultural',
         'cv.theatre.p3.title':'Van Gogh Tribute','cv.theatre.p3.role':'Supporting','cv.theatre.p3.info':'Director: Cristina Puertas — Factoría Cultural',
         'cv.theatre.p4.title':'The Imaginary Invalid','cv.theatre.p4.role':'Argan','cv.theatre.p4.info':'Director: Cristina Puertas — Factoría Cultural',
+        'cv.train.studio.title':'Actors Studio Method','cv.train.studio.info':'Javier Molina',
+        'cv.train.chejov.title':'Chekhov Technique','cv.train.chejov.info':'Lidia Oton',
         'cv.train.p1.title':'Improvisation & On-Camera Acting','cv.train.p1.info':'Natalia Cooper',
         'cv.train.p2.title':'“Creative Space” Theatre Workshop','cv.train.p2.info':'Mario Villar & Patricia Caso',
-        'cv.train.p3.title':'On-Camera Acting (Online Workshop)','cv.train.p3.info':'Ángel Gómez, Francesco Cocco, Arantxa Domingo',
         'cv.train.p4.title':'Online Acting Program','cv.train.p4.info':'Eliana Ghen',
         'cv.train.p5.title':'Intensive On-Camera Technique','cv.train.p5.info':'Eliana Ghen & Bernard Hiller',
         'cv.train.p6.title':'Acting Training','cv.train.p6.info':'Cristina Puertas — La Habitación Blanca / Cuéntame un Cuadro',
@@ -321,7 +332,8 @@
         'cv.skill.p1.title':'Modern & Urban Dance','cv.skill.p1.info':'School instructor (2024)',
         'cv.skill.p2.title':'Classical Ballet & Contemporary','cv.skill.p2.info':'Intermediate level',
         'cv.skill.p3.title':'Driver’s license','cv.skill.p3.info':'B',
-        'cv.skill.p4.title':'Other','cv.skill.p4.info':'Climbing',
+        'cv.skill.p5.title':'Basic equestrian skills',
+        'cv.skill.p4.title':'Basic climbing skills',
         'cv.download':'DOWNLOAD RESUME PDF','cv.view':'VIEW ONLINE',
         'contact.title':'CONTACT',
         'footer.rights':'ALL RIGHTS RESERVED',
