@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es" data-lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sobre Mí | Mike Denz</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <a href="#main-content" class="skip-link" data-i18n="skip">SALTAR AL CONTENIDO</a>
+
+  <header>
+    <nav>
+      <a href="index.html" class="logo" aria-label="Inicio">
+        <img src="logo-md.png" alt="Logo MD" class="logo-img" title="Inicio">
+        <span class="logo-text">MIKE DENZ</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="sobre-mi.html" class="active" data-i18n="nav.about">SOBRE MÍ</a></li>
+        <li><a href="videobook.html" data-i18n="nav.showreel">VIDEOBOOK</a></li>
+        <li><a href="galeria.html" data-i18n="nav.portfolio">GALERÍA</a></li>
+        <li><a href="curriculum.html" data-i18n="nav.resume">CURRÍCULUM</a></li>
+        <li><a href="contacto.html" data-i18n="nav.contact">CONTACTO</a></li>
+      </ul>
+      <button id="langToggle" class="lang-btn" aria-label="Cambiar idioma">EN</button>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="about" style="padding-top: 150px;">
+      <h2 data-i18n="about.title">SOBRE MÍ</h2>
+      <p data-i18n="about.text">
+        Desde pequeño siempre me ha gustado imitar a los personajes que veía en la pantalla, desde los dibujos animados hasta Murdock del Equipo A. Sin darme cuenta, lo que más me divertía era jugar con la emoción, así que decidí apuntarme a clases de teatro y desde entonces no he dejado de formarme haciendo lo que más me gusta: interpretar.  
+        Ahora, entre mi rincón industrial favorito (Avilés) y Madrid, me muevo para un día poder cumplir mi sueño: vivir de esta profesión.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 MIKE DENZ — <span data-i18n="footer.rights">TODOS LOS DERECHOS RESERVADOS</span></p>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>

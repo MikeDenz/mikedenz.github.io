@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es" data-lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Galería | Mike Denz</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <a href="#main-content" class="skip-link" data-i18n="skip">SALTAR AL CONTENIDO</a>
+
+  <header>
+    <nav>
+      <a href="index.html" class="logo" aria-label="Inicio">
+        <img src="logo-md.png" alt="Logo MD" class="logo-img" title="Inicio">
+        <span class="logo-text">MIKE DENZ</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="sobre-mi.html" data-i18n="nav.about">SOBRE MÍ</a></li>
+        <li><a href="videobook.html" data-i18n="nav.showreel">VIDEOBOOK</a></li>
+        <li><a href="galeria.html" class="active" data-i18n="nav.portfolio">GALERÍA</a></li>
+        <li><a href="curriculum.html" data-i18n="nav.resume">CURRÍCULUM</a></li>
+        <li><a href="contacto.html" data-i18n="nav.contact">CONTACTO</a></li>
+      </ul>
+      <button id="langToggle" class="lang-btn" aria-label="Cambiar idioma">EN</button>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="gallery" style="padding-top: 150px;">
+      <h2 data-i18n="gallery.title">GALERÍA</h2>
+      <div class="grid">
+        <img src="foto10.jpg" alt="Retrato profesional 4" loading="lazy">
+        <img src="foto12.jpg" alt="Retrato profesional 4" loading="lazy">
+        <img src="foto11.jpg" alt="Retrato profesional 4" loading="lazy">
+        <img src="foto8.jpg" alt="Retrato profesional 8" loading="lazy">
+        <img src="foto9.jpg" alt="Retrato profesional 4" loading="lazy">
+        <img src="foto5.jpg" alt="Retrato profesional 5" loading="lazy">
+        <img src="foto6.jpg" alt="Retrato profesional 6" loading="lazy">
+        <img src="foto7.jpg" alt="Retrato profesional 7" loading="lazy">
+        <img src="foto1.jpg" alt="Retrato profesional 1" loading="lazy">
+        <img src="foto2.jpg" alt="Retrato profesional 2" loading="lazy">
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 MIKE DENZ — <span data-i18n="footer.rights">TODOS LOS DERECHOS RESERVADOS</span></p>
+  </footer>
+
+  <script>
+    const imgs=document.querySelectorAll('.grid img');
+    const lb=document.createElement('div');
+    lb.classList.add('lightbox');
+    const lbImg=document.createElement('img');
+    const lbClose=document.createElement('span');
+    lbClose.classList.add('lightbox-close');
+    lbClose.innerHTML='&times;';
+    lb.appendChild(lbImg);lb.appendChild(lbClose);
+    document.body.appendChild(lb);
+    imgs.forEach(i=>i.addEventListener('click',()=>{lbImg.src=i.src;lb.classList.add('active')}));
+    lbClose.addEventListener('click',()=>lb.classList.remove('active'));
+    lb.addEventListener('click',e=>{if(e.target===lb)lb.classList.remove('active')});
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>
