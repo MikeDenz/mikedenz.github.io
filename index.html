@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mike Denz — Actor</title>
+
+<meta name="description" content="Mike Denz, actor. También conocido como Miguel Denz o Denzmike. Madrid y Asturias. Videobook, galería y trayectoria.">
+<meta name="keywords" content="Mike Denz, Miguel Denz, Denzmike, Denz actor, actor Madrid, actor Asturias, actor español, videobook">
+<meta name="author" content="Mike Denz">
+<link rel="canonical" href="https://denzmike.com/">
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mike Denz — Actor">
+<meta property="og:description" content="Actor. Madrid y Asturias. Videobook, galería y trayectoria.">
+<meta property="og:url" content="https://denzmike.com/">
+<meta property="og:image" content="https://denzmike.com/img/portada.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Mike Denz",
+  "alternateName": ["Miguel Denz", "Denzmike"],
+  "jobTitle": "Actor",
+  "url": "https://denzmike.com",
+  "email": "mailto:mikedenz.actor@gmail.com",
+  "sameAs": ["https://instagram.com/denzmike"],
+  "workLocation": ["Madrid", "Asturias"]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+
+<script>
+/* Aplica el tema guardado antes del primer pintado (evita el destello) */
+try{
+  var t = localStorage.getItem('md_theme');
+  if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+}catch(e){}
+</script>
+</head>
+<body>
+
+<div class="grain" aria-hidden="true"></div>
+
+<!-- Velo de primera entrada -->
+<div class="entry-veil" id="entryVeil" aria-hidden="true">
+  <div class="monogram">M<em>D</em></div>
+  <div class="thread"></div>
+</div>
+
+<!-- Filamento que recorre el borde al cambiar de sala -->
+<div class="filament" id="filament" aria-hidden="true"></div>
+
+<a class="eyebrow" href="#home" style="position:absolute;left:-999px;top:0;z-index:9999;background:var(--bg);padding:1em"
+   onfocus="this.style.left='1rem';this.style.top='1rem'" onblur="this.style.left='-999px'" data-i18n="a11y.skip">Ir al contenido</a>
+
+<!-- ============ CABECERA ============ -->
+<header class="site-head" id="siteHead">
+  <a class="brand" href="#home" data-route="home" aria-label="Mike Denz — inicio">M<em>Denz</em></a>
+
+  <nav class="nav-desk" aria-label="Salas">
+    <a class="room-link" href="#home"       data-route="home"><span class="rn">I</span><span data-i18n="nav.home">Inicio</span></a>
+    <a class="room-link" href="#videobook"  data-route="videobook"><span class="rn">II</span><span data-i18n="nav.videobook">Videobook</span></a>
+    <a class="room-link" href="#galeria"    data-route="galeria"><span class="rn">III</span><span data-i18n="nav.galeria">Galería</span></a>
+    <a class="room-link" href="#curriculum" data-route="curriculum"><span class="rn">IV</span><span data-i18n="nav.curriculum">Trayectoria</span></a>
+    <a class="room-link" href="#contacto"   data-route="contacto"><span class="rn">V</span><span data-i18n="nav.contacto">Contacto</span></a>
+
+    <div class="head-tools">
+      <button class="tool-btn theme-toggle" id="themeToggle" aria-label="Cambiar a modo claro">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle class="sun-core" cx="12" cy="12" r="6.5"/>
+          <circle class="moon-bite" cx="12" cy="12" r="6.5"/>
+        </svg>
+      </button>
+      <button class="tool-btn lang-toggle" id="langToggle" aria-label="Switch to English">EN</button>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- Menú móvil -->
+<div class="nav-veil" id="navVeil" aria-hidden="true">
+  <a class="room-link" style="--i:0" href="#home"       data-route="home"><span class="rn">I</span><span data-i18n="nav.home">Inicio</span></a>
+  <a class="room-link" style="--i:1" href="#videobook"  data-route="videobook"><span class="rn">II</span><span data-i18n="nav.videobook">Videobook</span></a>
+  <a class="room-link" style="--i:2" href="#galeria"    data-route="galeria"><span class="rn">III</span><span data-i18n="nav.galeria">Galería</span></a>
+  <a class="room-link" style="--i:3" href="#curriculum" data-route="curriculum"><span class="rn">IV</span><span data-i18n="nav.curriculum">Trayectoria</span></a>
+  <a class="room-link" style="--i:4" href="#contacto"   data-route="contacto"><span class="rn">V</span><span data-i18n="nav.contacto">Contacto</span></a>
+
+  <div class="veil-tools">
+    <button class="tool-btn" id="themeToggleM" aria-label="Cambiar a modo claro" data-i18n="tools.theme">Luz</button>
+    <button class="tool-btn" id="langToggleM" aria-label="Switch to English">EN</button>
+  </div>
+
+  <div class="veil-foot eyebrow">
+    <span>Mike Denz</span>
+    <span data-i18n="foot.place">Madrid — Asturias</span>
+  </div>
+</div>
+
+<main id="salas">
+
+  <!-- ============ SALA I · UMBRAL ============ -->
+  <section class="sala" id="home" data-route="home">
+    <div class="hero">
+      <figure class="hero-frame">
+        <img src="img/portada.jpg" alt="Mike Denz">
+      </figure>
+
+      <div class="hero-cont">
+        <p class="eyebrow" data-reveal style="--i:0">
+          <span class="num">I</span><span data-i18n="home.eyebrow">Actor — Madrid · Asturias</span>
+        </p>
+
+        <h1 class="hero-nombre">
+          <span class="mask-line" style="--i:1"><span>Mike <em>Denz</em></span></span>
+        </h1>
+
+        <div class="hero-ctas" data-reveal style="--i:2">
+          <div class="magnet">
+            <a class="magnet-btn" href="#videobook" data-route="videobook">
+              <span class="fill" aria-hidden="true"></span>
+              <span class="lbl" data-i18n="home.cta">Ver videobook</span>
+              <span class="arrow" aria-hidden="true"></span>
+            </a>
+          </div>
+          <a class="ghost-link" href="#galeria" data-route="galeria" data-i18n="home.cta2">Galería</a>
+        </div>
+
+        <blockquote class="hero-wilde" data-reveal style="--i:3">
+          <span data-i18n="home.quote">«La vida imita al arte mucho más de lo que el arte imita a la vida.»</span>
+          <span class="attr">— Oscar Wilde</span>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SALA II · VIDEOBOOK ============ -->
+  <section class="sala" id="videobook" data-route="videobook" hidden>
+    <div class="room-head">
+      <p class="eyebrow" data-reveal style="--i:0">
+        <span class="num">II</span><span data-i18n="vb.eyebrow">Material de casting</span>
+      </p>
+      <h1>
+        <span class="mask-line" style="--i:1"><span><span data-i18n="vb.h1a">Video</span><em data-i18n="vb.h1b">book</em></span></span>
+      </h1>
+    </div>
+
+    <div class="altar">
+      <div class="altar-frame" data-reveal style="--i:2">
+        <div class="player" id="player">
+          <button class="poster" id="posterBtn" aria-label="Reproducir videobook">
+            <img src="img/portada.jpg" alt="Mike Denz — fotograma del videobook" loading="lazy" decoding="async"
+                 onerror="this.style.display='none'">
+            <span class="play-ring" aria-hidden="true"></span>
+          </button>
+          <div class="player-note" id="playerNote" data-i18n="vb.note">Añade tu ID de YouTube en js/app.js</div>
+        </div>
+      </div>
+
+      <div class="altar-caption" data-reveal style="--i:3">
+        <span class="title-it" data-i18n="vb.title">Videobook · 2026</span>
+        <span data-i18n="vb.meta">Escenas y monólogo — castellano / english</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SALA III · GALERÍA ============ -->
+  <section class="sala" id="galeria" data-route="galeria" hidden>
+    <div class="room-head">
+      <p class="eyebrow" data-reveal style="--i:0">
+        <span class="num">III</span><span data-i18n="gal.eyebrow">La exposición</span>
+      </p>
+      <h1>
+        <span class="mask-line" style="--i:1"><span><span data-i18n="gal.h1a">Gale</span><em data-i18n="gal.h1b">ría</em></span></span>
+      </h1>
+      <p class="lead" data-reveal style="--i:2" data-i18n="gal.lead">Retratos y cuerpo entero.</p>
+    </div>
+
+    <!-- Las obras se montan desde js/app.js (edita ahí la lista de fotos) -->
+    <div class="expo" id="expo" aria-label="Galería fotográfica"></div>
+
+    <p class="expo-outro" data-reveal style="--i:3" data-i18n="gal.outro">Fin de la exposición.</p>
+  </section>
+
+  <!-- ============ SALA IV · TRAYECTORIA ============ -->
+  <section class="sala" id="curriculum" data-route="curriculum" hidden>
+    <div class="room-head">
+      <p class="eyebrow" data-reveal style="--i:0">
+        <span class="num">IV</span><span data-i18n="cv.eyebrow">La trayectoria</span>
+      </p>
+      <h1>
+        <span class="mask-line" style="--i:1"><span><span data-i18n="cv.h1a">Trayec</span><em data-i18n="cv.h1b">toria</em></span></span>
+      </h1>
+    </div>
+
+    <div class="cv-grid">
+      <aside class="cv-aside" data-reveal style="--i:2">
+        <p class="statement" data-i18n="cv.statement">Formación continua, escena y cámara. Interpretación en castellano e inglés.</p>
+
+        <div class="cv-meta">
+          <div><span data-i18n="cv.m1">Residencia</span><strong data-i18n="foot.place">Madrid — Asturias</strong></div>
+          <div><span data-i18n="cv.m2">Idiomas</span><strong data-i18n="cv.m2v">Español · Inglés C1 · Francés</strong></div>
+          <div><span data-i18n="cv.m3">Técnica</span><strong>Stanislavski · Adler · Chubbuck · Chéjov</strong></div>
+        </div>
+
+        <a class="btn-pdf" href="docs/CV_MikeDenz_2026.pdf" download>
+          <span data-i18n="cv.pdf">Descargar CV</span>
+          <span class="dl" aria-hidden="true">↓</span>
+        </a>
+      </aside>
+
+      <div class="cv-flow">
+        <div class="cv-block" data-reveal style="--i:3">
+          <h2><span data-i18n="cv.b1">Audiovisual</span><span class="rule" style="--i:3"></span></h2>
+          <div class="cv-item">
+            <span class="work">El actor</span><span class="role">Miguel</span>
+            <span class="credit" data-i18n="cv.c1">Dir. Mike Denz — Independiente</span>
+          </div>
+          <div class="cv-item">
+            <span class="work">Anna</span><span class="role" data-i18n="cv.r2">Secundario</span>
+            <span class="credit" data-i18n="cv.c2">Dir. Pablo García — CISLAN · Cortometraje</span>
+          </div>
+        </div>
+
+        <div class="cv-block" data-reveal style="--i:4">
+          <h2><span data-i18n="cv.b2">Teatro</span><span class="rule" style="--i:4"></span></h2>
+          <div class="cv-item">
+            <span class="work">El desván</span><span class="role" data-i18n="cv.r3">Reparto principal</span>
+            <span class="credit" data-i18n="cv.c3">Dir. Patricia Caso, Mario Villar — Teatro Joven Avilés</span>
+          </div>
+          <div class="cv-item">
+            <span class="work">Glengarry Glen Ross</span><span class="role" data-i18n="cv.r4">Secundario</span>
+            <span class="credit" data-i18n="cv.c4">Dir. Cristina Puertas — Factoría Cultural</span>
+          </div>
+          <div class="cv-item">
+            <span class="work">Homenaje Van Gogh</span><span class="role" data-i18n="cv.r4">Secundario</span>
+            <span class="credit" data-i18n="cv.c4">Dir. Cristina Puertas — Factoría Cultural</span>
+          </div>
+          <div class="cv-item">
+            <span class="work">El enfermo imaginario</span><span class="role">Argán</span>
+            <span class="credit" data-i18n="cv.c6">de Molière</span>
+          </div>
+        </div>
+
+        <div class="cv-block" data-reveal style="--i:5">
+          <h2><span data-i18n="cv.b3">Formación</span><span class="rule" style="--i:5"></span></h2>
+          <div class="cv-cols">
+            <div class="cv-item">
+              <span class="work">Javier Molina</span>
+              <span class="role" data-i18n="cv.f1">Interpretación · Actors Studio</span>
+            </div>
+            <div class="cv-item">
+              <span class="work">Bernard Hiller</span>
+              <span class="role" data-i18n="cv.f2">Masterclass internacional</span>
+            </div>
+            <div class="cv-item">
+              <span class="work">Lidia Otón</span>
+              <span class="role" data-i18n="cv.f3">Técnica Chéjov</span>
+            </div>
+            <div class="cv-item">
+              <span class="work">Natalia Cooper</span>
+              <span class="role" data-i18n="cv.f5">Interpretación e improvisación</span>
+            </div>
+            <div class="cv-item">
+              <span class="work">Eliana Ghen</span>
+              <span class="role" data-i18n="cv.f6">Interpretación ante la cámara</span>
+            </div>
+            <div class="cv-item">
+              <span class="work">Cristina Puertas</span>
+              <span class="role" data-i18n="cv.f4">Teatro — Factoría Cultural</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cv-block" data-reveal style="--i:6">
+          <h2><span data-i18n="cv.b4">Danza y habilidades</span><span class="rule" style="--i:6"></span></h2>
+          <ul class="skill-list">
+            <li><span data-i18n="cv.s1">Danza moderna</span><small data-i18n="cv.s1n">Docencia en escuelas</small></li>
+            <li data-i18n="cv.s2">Ballet clásico</li>
+            <li><span data-i18n="cv.s3">Equitación</span><small data-i18n="cv.sbn">Nociones básicas</small></li>
+            <li><span data-i18n="cv.s4">Escalada</span><small data-i18n="cv.sbn2">Nociones básicas</small></li>
+            <li><span data-i18n="cv.s5">Carnet de conducir</span><small>B</small></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SALA V · CONTACTO ============ -->
+  <section class="sala" id="contacto" data-route="contacto" hidden>
+    <div class="cierre">
+      <div class="room-head" style="width:100%">
+        <p class="eyebrow" data-reveal style="--i:0">
+          <span class="num">V</span><span data-i18n="ct.eyebrow">Hablemos</span>
+        </p>
+        <h1>
+          <span class="mask-line" style="--i:1"><span><span data-i18n="ct.h1a">Con</span><em data-i18n="ct.h1b">tacto</em></span></span>
+        </h1>
+        <p class="lead" data-reveal style="--i:2" data-i18n="ct.lead">Disponible para casting, cine y escena.</p>
+      </div>
+
+      <div data-reveal style="--i:3">
+        <a class="mail-xl" href="mailto:mikedenz.actor@gmail.com" id="mailXl">mikedenz.actor@gmail.com</a>
+        <p class="mail-hint" id="mailHint" data-i18n="ct.copy">Clic derecho o mantener para copiar</p>
+      </div>
+
+      <div class="plaques" data-reveal style="--i:4" id="plaques">
+        <a class="plaque" href="tel:+34653051130">
+          <span class="k" data-i18n="ct.k1">Teléfono</span>
+          <span class="v">+34 653 051 130</span>
+        </a>
+        <a class="plaque" href="https://instagram.com/denzmike" target="_blank" rel="noopener">
+          <span class="k">Instagram</span>
+          <span class="v">@denzmike</span>
+        </a>
+        <div class="plaque">
+          <span class="k" data-i18n="ct.k2">Residencia</span>
+          <span class="v" data-i18n="foot.place">Madrid — Asturias</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cierre-foot" data-reveal style="--i:5">
+      <span class="mono">M<em>Denz</em></span>
+      <span data-i18n="ct.rights">Mike Denz — Actor · MMXXVI</span>
+    </div>
+  </section>
+
+</main>
+
+<!-- Lightbox de la exposición -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Obra ampliada">
+  <button class="lb-close" id="lbClose" aria-label="Cerrar">✕</button>
+  <div class="stage"><img id="lbImg" src="" alt=""></div>
+  <div class="lb-bar">
+    <button id="lbPrev" aria-label="Anterior">‹&nbsp;&nbsp;<span data-i18n="lb.prev">Ant</span></button>
+    <span id="lbCount">01 / 01</span>
+    <button id="lbNext" aria-label="Siguiente"><span data-i18n="lb.next">Sig</span>&nbsp;&nbsp;›</button>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+MIKE DENZ — denzmike.com · "El Templo"
+=======================================
+
+QUÉ ES
+------
+SPA real de cinco salas: Retrato (home), Videobook, Galería, Trayectoria
+y Contacto. Sin recargas: cada sala se apaga y la siguiente se enciende
+(fade + título que sube desde su máscara + filamento de oro en el borde).
+Modo oscuro (templo) y claro (galería hueso), ES/EN, todo persistente.
+
+ESTRUCTURA PARA SUBIR A LA RAÍZ DEL HOSTING
+-------------------------------------------
+index.html
+css/style.css
+js/app.js
+img/            → tus fotos (ya incluidas)
+docs/CV_MikeDenz_2026.pdf
+favicon.ico y favicon.png (el logo en la pestaña, ya adaptado)
+
+Las rutas #videobook, #galeria, #curriculum y #contacto funcionan solas
+(router por hash): los enlaces antiguos tipo denzmike.com/#galeria valen.
+
+TRES COSAS QUE EDITAR EN js/app.js (bloque CONFIGURACIÓN, arriba del todo)
+--------------------------------------------------------------------------
+1) VIDEO.vimeo    → pega tu enlace de Vimeo cuando lo tengas
+   (vale la URL entera o solo el número). El reproductor se
+   inyecta limpio, sin logos ni distracciones.
+   Alternativas: un ID de YouTube en VIDEO.youtube, o un
+   archivo propio en VIDEO.mp4.
+
+2) GALLERY        → tus 13 fotos YA VAN DENTRO del zip (img/galeria-01
+   … galeria-13), ordenadas: headshots, medio cuerpo, cuerpo entero,
+   editorial y danza. Para reordenar, añadir o quitar, edita la lista;
+   si una foto no existe, su hueco desaparece y el Nº se recompone.
+
+3) CASTING        → descomenta y rellena si quieres placas con tus
+   perfiles de plataformas de casting en Contacto.
+
+EL PDF DEL CURRÍCULUM
+---------------------
+El botón "Descargar CV" apunta a docs/CV_MikeDenz_2026.pdf
+favicon.ico y favicon.png (el logo en la pestaña, ya adaptado).
+Sube ahí tu PDF (o cambia la ruta en index.html, botón .btn-pdf).
+
+VISTA PREVIA
+------------
+Abre VISTA-PREVIA.html con doble clic: es la web completa con fotos
+provisionales incrustadas para que veas transiciones, hover de la
+galería, lightbox, botón magnético, modo claro/oscuro y ES/EN sin
+subir nada. No la subas al hosting: es solo para mirar.
+
+DETALLES QUE YA VIENEN HECHOS
+-----------------------------
+· SEO: meta description/keywords (Mike Denz, Miguel Denz, Denzmike),
+  Open Graph y datos estructurados schema.org de Persona.
+· El clic en el correo de Contacto copia la dirección y abre el mailto.
+· Teclado y accesibilidad: focus visible, Esc cierra menú y lightbox,
+  flechas ← → navegan la exposición.
+· prefers-reduced-motion respetado (todo pasa a fundidos simples).

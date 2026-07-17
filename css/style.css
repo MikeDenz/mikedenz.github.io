@@ -1,0 +1,1129 @@
+/* ============================================================
+   MIKE DENZ — denzmike.com
+   "El Templo" · SPA de cinco salas
+   Tipografía: Cormorant Garamond (display) + Jost (versales)
+   ============================================================ */
+
+/* ---------- Tokens ---------- */
+:root{
+  --ease: cubic-bezier(.22,1,.36,1);
+  --ease-out: cubic-bezier(.16,1,.3,1);
+  --t-leave: 420ms;
+  --t-enter: 850ms;
+
+  --font-display:"Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-caps:"Jost", "Avenir Next", "Century Gothic", sans-serif;
+
+  --w: min(1240px, 92vw);
+  --w-wide: min(1420px, 94vw);
+}
+
+/* Sala oscura (por defecto): el templo de noche */
+:root, html[data-theme="dark"]{
+  --bg:#0d0b08;
+  --bg-raised:#151109;
+  --ink:#ece5d4;
+  --ink-soft:#a89e88;
+  --ink-faint:#6f6753;
+  --gold:#c8a45d;
+  --gold-bright:#e0bd72;
+  --gold-deep:#8f7440;
+  --line:rgba(236,229,212,.14);
+  --line-strong:rgba(236,229,212,.30);
+  --veil:rgba(13,11,8,.72);
+  --img-dim: brightness(.74) saturate(.88);
+  --shadow: 0 30px 80px -20px rgba(0,0,0,.55);
+  color-scheme: dark;
+}
+
+/* Sala de galería (modo claro): blanco hueso nítido */
+html[data-theme="light"]{
+  --bg:#f3efe4;
+  --bg-raised:#eae4d3;
+  --ink:#181510;
+  --ink-soft:#5d564a;
+  --ink-faint:#8d8574;
+  --gold:#96742f;
+  --gold-bright:#7a5c20;
+  --gold-deep:#b0904a;
+  --line:rgba(24,21,16,.16);
+  --line-strong:rgba(24,21,16,.34);
+  --veil:rgba(243,239,228,.78);
+  --img-dim: brightness(.96) saturate(.94);
+  --shadow: 0 30px 70px -30px rgba(24,21,16,.28);
+  color-scheme: light;
+}
+
+/* ---------- Base ---------- */
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+
+html{
+  scroll-behavior:smooth;
+  -webkit-text-size-adjust:100%;
+}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font-display);
+  font-size:18px;
+  line-height:1.6;
+  min-height:100svh;
+  overflow-x:hidden;
+  transition: background-color .7s var(--ease), color .7s var(--ease);
+  -webkit-font-smoothing:antialiased;
+}
+body.is-locked{ overflow:hidden; }
+
+img{ display:block; max-width:100%; height:auto; }
+a{ color:inherit; text-decoration:none; }
+button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer; }
+::selection{ background:var(--gold); color:var(--bg); }
+
+:focus-visible{
+  outline:1px solid var(--gold);
+  outline-offset:4px;
+  border-radius:1px;
+}
+
+/* Grano de sala: materia sobre el vacío */
+.grain{
+  position:fixed; inset:-40%;
+  width:180%; height:180%;
+  pointer-events:none;
+  z-index:2000;
+  opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+html[data-theme="light"] .grain{ opacity:.035; }
+
+/* Tipografía utilitaria */
+.eyebrow{
+  font-family:var(--font-caps);
+  font-size:.68rem;
+  font-weight:400;
+  letter-spacing:.34em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+}
+.eyebrow .num{ color:var(--gold); margin-right:.9em; }
+
+em, .it{ font-style:italic; }
+.gold{ color:var(--gold); }
+
+/* ============================================================
+   VELO DE ENTRADA (solo primera carga)
+   ============================================================ */
+.entry-veil{
+  position:fixed; inset:0; z-index:5000;
+  background:var(--bg);
+  display:grid; place-items:center;
+  transition: transform 1s var(--ease-out), visibility 1s;
+}
+.entry-veil .monogram{
+  font-family:var(--font-display);
+  font-size:clamp(2.6rem, 6vw, 4.4rem);
+  letter-spacing:.4em;
+  padding-left:.4em; /* compensa el tracking */
+  color:var(--ink);
+  opacity:0;
+  animation: veilIn 1.1s var(--ease) .1s forwards;
+}
+.entry-veil .monogram em{ color:var(--gold); }
+.entry-veil .thread{
+  position:absolute; left:50%; bottom:18vh;
+  width:1px; height:0;
+  background:var(--gold);
+  animation: threadGrow .9s var(--ease) .25s forwards;
+}
+.entry-veil.is-lifted{
+  transform:translateY(-100%);
+  visibility:hidden;
+}
+@keyframes veilIn{
+  from{ opacity:0; letter-spacing:.7em; }
+  to{ opacity:1; letter-spacing:.4em; }
+}
+@keyframes threadGrow{ to{ height:9vh; } }
+
+/* Filamento de tránsito entre salas */
+.filament{
+  position:fixed; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg, transparent, var(--gold) 18%, var(--gold) 82%, transparent);
+  transform:scaleX(0);
+  transform-origin:left;
+  z-index:4000;
+  opacity:0;
+  pointer-events:none;
+}
+.filament.is-running{
+  animation: filament 1s var(--ease) forwards;
+}
+@keyframes filament{
+  0%{ transform:scaleX(0); opacity:1; }
+  55%{ transform:scaleX(1); opacity:1; }
+  100%{ transform:scaleX(1); opacity:0; }
+}
+
+/* ============================================================
+   CABECERA
+   ============================================================ */
+.site-head{
+  position:fixed; top:0; left:0; right:0; z-index:900;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:26px 4vw;
+  transition: padding .5s var(--ease), background-color .5s var(--ease),
+              border-color .5s var(--ease), backdrop-filter .5s var(--ease);
+  border-bottom:1px solid transparent;
+}
+.site-head.is-scrolled{
+  padding:14px 4vw;
+  background:color-mix(in srgb, var(--bg) 82%, transparent);
+  -webkit-backdrop-filter:blur(14px);
+  backdrop-filter:blur(14px);
+  border-bottom-color:var(--line);
+}
+
+.brand{
+  font-family:var(--font-display);
+  font-size:1.5rem;
+  font-weight:500;
+  letter-spacing:.02em;
+  line-height:1;
+  display:inline-flex; align-items:baseline;
+  z-index:1002;
+}
+.brand em{ color:var(--gold); font-weight:500; }
+
+/* Nav escritorio */
+.nav-desk{
+  display:flex; align-items:center; gap:2.1rem;
+}
+.nav-desk .room-link{
+  position:relative;
+  font-family:var(--font-caps);
+  font-size:.66rem;
+  font-weight:400;
+  letter-spacing:.26em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+  padding:6px 0;
+  transition: color .4s var(--ease);
+}
+.nav-desk .room-link .rn{
+  font-size:.56rem;
+  color:var(--gold);
+  opacity:.55;
+  margin-right:.55em;
+  letter-spacing:.12em;
+  transition: opacity .4s var(--ease);
+}
+.nav-desk .room-link::after{
+  content:"";
+  position:absolute; left:50%; bottom:0;
+  width:100%; height:1px;
+  background:var(--gold);
+  transform:translateX(-50%) scaleX(0);
+  transform-origin:center;
+  transition: transform .5s var(--ease);
+}
+.nav-desk .room-link:hover{ color:var(--ink); }
+.nav-desk .room-link:hover::after{ transform:translateX(-50%) scaleX(.55); }
+.nav-desk .room-link[aria-current="page"]{ color:var(--ink); }
+.nav-desk .room-link[aria-current="page"] .rn{ opacity:1; }
+.nav-desk .room-link[aria-current="page"]::after{ transform:translateX(-50%) scaleX(1); }
+
+.head-tools{
+  display:flex; align-items:center; gap:1.15rem;
+  margin-left:1.3rem;
+  padding-left:1.5rem;
+  border-left:1px solid var(--line);
+}
+
+/* Conmutadores */
+.tool-btn{
+  font-family:var(--font-caps);
+  font-size:.64rem;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+  display:inline-flex; align-items:center; gap:.5em;
+  transition: color .35s var(--ease);
+  padding:6px 2px;
+}
+.tool-btn:hover{ color:var(--gold); }
+
+.theme-toggle svg{
+  width:15px; height:15px;
+  display:block;
+  overflow:visible;
+}
+.theme-toggle .sun-core{
+  fill:none; stroke:currentColor; stroke-width:1.1;
+  transition: r .5s var(--ease);
+}
+.theme-toggle .moon-bite{
+  fill:var(--bg);
+  transform:translate(14px,-14px);
+  transition: transform .55s var(--ease);
+}
+html[data-theme="dark"] .theme-toggle .moon-bite{ transform:translate(4.5px,-4.5px); }
+
+/* Hamburguesa */
+.nav-toggle{
+  display:none;
+  position:relative;
+  width:34px; height:26px;
+  z-index:1002;
+}
+.nav-toggle span{
+  position:absolute; left:4px; right:4px; height:1px;
+  background:var(--ink);
+  transition: transform .5s var(--ease), top .5s var(--ease), opacity .3s;
+}
+.nav-toggle span:nth-child(1){ top:8px; }
+.nav-toggle span:nth-child(2){ top:17px; }
+.nav-toggle.is-open span:nth-child(1){ top:12.5px; transform:rotate(45deg); }
+.nav-toggle.is-open span:nth-child(2){ top:12.5px; transform:rotate(-45deg); }
+
+/* Menú móvil: la sala se abre */
+.nav-veil{
+  position:fixed; inset:0; z-index:1000;
+  background:var(--bg);
+  display:flex; flex-direction:column;
+  justify-content:center;
+  padding:0 9vw;
+  visibility:hidden;
+  opacity:0;
+  transition: opacity .55s var(--ease), visibility .55s;
+}
+.nav-veil.is-open{ visibility:visible; opacity:1; }
+
+.nav-veil .room-link{
+  display:flex; align-items:baseline; gap:1.1rem;
+  padding:.55em 0;
+  font-family:var(--font-display);
+  font-size:clamp(2rem, 8.5vw, 3.2rem);
+  font-weight:500;
+  color:var(--ink);
+  border-bottom:1px solid var(--line);
+  opacity:0;
+  transform:translateY(26px);
+  transition: opacity .7s var(--ease), transform .7s var(--ease), color .4s;
+  transition-delay:0ms;
+}
+.nav-veil .room-link .rn{
+  font-family:var(--font-caps);
+  font-size:.72rem;
+  letter-spacing:.2em;
+  color:var(--gold);
+  min-width:1.8em;
+}
+.nav-veil .room-link[aria-current="page"]{ color:var(--gold); }
+.nav-veil.is-open .room-link{
+  opacity:1; transform:none;
+  transition-delay:calc(90ms + var(--i,0) * 70ms);
+}
+.nav-veil .veil-tools{
+  display:flex; gap:2.2rem;
+  margin-top:2.6rem;
+  opacity:0; transform:translateY(18px);
+  transition: opacity .7s var(--ease) .5s, transform .7s var(--ease) .5s;
+}
+.nav-veil.is-open .veil-tools{ opacity:1; transform:none; }
+.nav-veil .veil-foot{
+  position:absolute; bottom:5vh; left:9vw; right:9vw;
+  display:flex; justify-content:space-between;
+  opacity:0;
+  transition: opacity .8s var(--ease) .6s;
+}
+.nav-veil.is-open .veil-foot{ opacity:.85; }
+
+/* ============================================================
+   SALAS (vistas de la SPA)
+   ============================================================ */
+main{ position:relative; }
+
+.sala{
+  min-height:100svh;
+  padding:calc(96px + 4vh) 0 9vh;
+  will-change:opacity, transform;
+}
+.sala[hidden]{ display:none !important; }
+
+/* Salida: la luz baja */
+.sala.is-out{
+  opacity:0;
+  transform:translateY(-16px) scale(.995);
+  transition: opacity var(--t-leave) ease, transform var(--t-leave) ease;
+  pointer-events:none;
+}
+
+/* Entrada escalonada de piezas */
+.sala [data-reveal]{
+  opacity:0;
+  transform:translateY(26px);
+}
+.sala.is-in [data-reveal]{
+  opacity:1;
+  transform:none;
+  transition:
+    opacity var(--t-enter) var(--ease),
+    transform var(--t-enter) var(--ease);
+  transition-delay:calc(var(--i,0) * 75ms);
+}
+
+/* Títulos: cada línea sube desde su máscara */
+.mask-line{
+  display:block;
+  overflow:hidden;
+  padding-bottom:.06em;
+  margin-bottom:-.06em;
+}
+.mask-line > span{
+  display:block;
+  transform:translateY(112%);
+}
+.sala.is-in .mask-line > span{
+  transform:translateY(0);
+  transition: transform 1.05s var(--ease);
+  transition-delay:calc(var(--i,0) * 90ms);
+}
+
+/* Trazos que se dibujan */
+.rule{
+  height:1px;
+  background:var(--line-strong);
+  transform:scaleX(0);
+  transform-origin:left;
+}
+.sala.is-in .rule{
+  transform:scaleX(1);
+  transition: transform 1.2s var(--ease);
+  transition-delay:calc(var(--i,0) * 90ms + 200ms);
+}
+
+/* Cabecera común de sala */
+.room-head{
+  width:var(--w);
+  margin:0 auto 6vh;
+}
+.room-head h1{
+  font-size:clamp(3.1rem, 9vw, 7.6rem);
+  font-weight:500;
+  line-height:.98;
+  letter-spacing:-.015em;
+  margin-top:.35em;
+}
+.room-head h1 em{
+  color:var(--gold);
+  font-weight:400;
+  margin-left:.04em;
+}
+.room-head .lead{
+  max-width:34em;
+  margin-top:1.6em;
+  font-size:clamp(1.05rem, 1.4vw, 1.25rem);
+  color:var(--ink-soft);
+  font-style:italic;
+}
+
+/* ============================================================
+   SALA I — RETRATO (Home)
+   Fotograma de cine: la imagen en su formato anamórfico,
+   el nombre como cartela de título debajo.
+   ============================================================ */
+#home{ padding:0; }
+
+.hero{
+  position:relative;
+  min-height:100svh;
+  display:flex; flex-direction:column; justify-content:center;
+  padding:calc(96px + 2vh) 0 clamp(2.5rem, 6vh, 4.5rem);
+}
+
+/* El fotograma: ancho completo, proporción de película */
+.hero-frame{
+  position:relative;
+  width:100%;
+  max-width:min(100%, calc(58vh * 2.33));
+  max-width:min(100%, calc(58svh * 2.33));
+  margin:0 auto;
+  overflow:hidden;
+  opacity:0;
+  transition: opacity 1.1s var(--ease);
+}
+.sala.is-in .hero-frame{ opacity:1; }
+.hero-frame::before,
+.hero-frame::after{
+  content:"";
+  position:absolute; left:0; right:0;
+  height:1px;
+  background:var(--gold-deep);
+  opacity:.45;
+  z-index:1;
+}
+.hero-frame::before{ top:0; }
+.hero-frame::after{ bottom:0; }
+.hero-frame img{
+  display:block;
+  width:100%;
+  aspect-ratio:2.33/1;
+  object-fit:cover;
+  object-position:55% 35%;
+  filter:saturate(.94) contrast(1.02);
+  transform:scale(1.03);
+  transition: transform 5.5s var(--ease);
+}
+.sala.is-in .hero-frame img{ transform:scale(1); }
+
+/* Cartela bajo el fotograma */
+.hero-cont{
+  width:var(--w);
+  margin:0 auto;
+  text-align:center;
+  padding-top:clamp(2.4rem, 5.5vh, 4rem);
+}
+.hero-cont .eyebrow{
+  justify-content:center;
+  margin-bottom:1.9em;
+}
+.hero-nombre{
+  font-size:clamp(3rem, 8.5vw, 7.2rem);
+  font-weight:500;
+  line-height:.95;
+  letter-spacing:-.015em;
+}
+.hero-nombre em{
+  color:var(--gold);
+  font-weight:400;
+}
+
+.hero-ctas{
+  margin-top:2.4em;
+  display:flex; justify-content:center; align-items:center; flex-wrap:wrap;
+  gap:1.2em 2.6em;
+}
+.ghost-link{
+  font-family:var(--font-caps);
+  font-size:.66rem;
+  letter-spacing:.3em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+  padding-bottom:.55em;
+  border-bottom:1px solid var(--line-strong);
+  transition: color .4s var(--ease), border-color .4s var(--ease), letter-spacing .5s var(--ease);
+}
+.ghost-link:hover{ color:var(--ink); border-color:var(--gold); letter-spacing:.38em; }
+
+/* Wilde: inscripción, no protagonista */
+.hero-wilde{
+  margin:3.2em auto 0;
+  max-width:30em;
+  font-style:italic;
+  font-size:.95rem;
+  line-height:1.7;
+  color:var(--ink-faint);
+}
+.hero-wilde .attr{
+  display:block;
+  margin-top:.9em;
+  font-style:normal;
+  font-family:var(--font-caps);
+  font-size:.58rem;
+  letter-spacing:.32em;
+  text-transform:uppercase;
+}
+
+/* Botón magnético */
+.magnet{
+  position:relative;
+  display:inline-flex;
+  will-change:transform;
+}
+.magnet-btn{
+  position:relative;
+  display:inline-flex; align-items:center; gap:1.1em;
+  padding:1.15em 2.6em;
+  border:1px solid var(--line-strong);
+  border-radius:999px;
+  font-family:var(--font-caps);
+  font-size:.7rem;
+  letter-spacing:.3em;
+  text-transform:uppercase;
+  color:var(--ink);
+  overflow:hidden;
+  transition: color .5s var(--ease), border-color .5s var(--ease);
+}
+.magnet-btn .fill{
+  position:absolute; inset:0;
+  background:var(--gold);
+  border-radius:inherit;
+  transform:scaleY(0);
+  transform-origin:bottom;
+  transition: transform .55s var(--ease);
+  z-index:0;
+}
+.magnet-btn .lbl{ position:relative; z-index:1; transition:transform .4s var(--ease); }
+.magnet-btn .arrow{
+  position:relative; z-index:1;
+  width:1.6em; height:1px;
+  background:currentColor;
+  transition: width .5s var(--ease);
+}
+.magnet-btn .arrow::after{
+  content:"";
+  position:absolute; right:0; top:50%;
+  width:.5em; height:.5em;
+  border-top:1px solid currentColor;
+  border-right:1px solid currentColor;
+  transform:translateY(-50%) rotate(45deg);
+}
+.magnet-btn:hover{ color:var(--bg); border-color:var(--gold); }
+.magnet-btn:hover .fill{ transform:scaleY(1); transform-origin:top; }
+.magnet-btn:hover .arrow{ width:2.3em; }
+
+/* ============================================================
+   SALA II — VIDEOBOOK (El altar)
+   ============================================================ */
+.altar{
+  width:var(--w-wide);
+  margin:0 auto;
+}
+.altar-frame{
+  position:relative;
+  margin-top:1vh;
+}
+/* Doble marco descentrado: la pieza del altar */
+.altar-frame::before{
+  content:"";
+  position:absolute;
+  inset:-18px 18px 18px -18px;
+  border:1px solid var(--gold-deep);
+  opacity:.55;
+  pointer-events:none;
+  transition: inset .8s var(--ease);
+}
+.altar-frame:hover::before{ inset:-12px 12px 12px -12px; }
+
+.player{
+  position:relative;
+  aspect-ratio:16/9;
+  background:var(--bg-raised);
+  border:1px solid var(--line);
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.player iframe, .player video{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  border:0;
+}
+.poster{
+  position:absolute; inset:0;
+  width:100%;
+  display:grid; place-items:center;
+  cursor:pointer;
+  isolation:isolate;
+}
+.poster img{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  filter:var(--img-dim) contrast(.98);
+  transform:scale(1.02);
+  transition: transform 6s var(--ease), filter 1.2s var(--ease);
+}
+.poster::after{
+  content:"";
+  position:absolute; inset:0;
+  background:radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,.45));
+  z-index:1;
+}
+html[data-theme="light"] .poster::after{
+  background:radial-gradient(ellipse at center, transparent 40%, rgba(24,21,16,.22));
+}
+.poster:hover img{ transform:scale(1.06); filter:brightness(.92) saturate(1); }
+
+.play-ring{
+  position:relative; z-index:2;
+  width:clamp(74px, 9vw, 108px);
+  aspect-ratio:1;
+  border:1px solid rgba(236,229,212,.75);
+  border-radius:50%;
+  display:grid; place-items:center;
+  color:#f2ecdd;
+  animation: breathe 4.5s ease-in-out infinite;
+  transition: border-color .5s, transform .6s var(--ease);
+  background:rgba(0,0,0,.14);
+  -webkit-backdrop-filter:blur(3px);
+  backdrop-filter:blur(3px);
+}
+.play-ring::before{
+  content:"";
+  width:0; height:0;
+  margin-left:4px;
+  border-left:14px solid currentColor;
+  border-top:9px solid transparent;
+  border-bottom:9px solid transparent;
+}
+.poster:hover .play-ring{ border-color:var(--gold-bright); color:var(--gold-bright); transform:scale(1.06); }
+@keyframes breathe{
+  0%,100%{ transform:scale(1); }
+  50%{ transform:scale(1.045); }
+}
+
+.altar-caption{
+  margin-top:1.8rem;
+  display:flex; justify-content:space-between; align-items:baseline;
+  gap:2rem; flex-wrap:wrap;
+  font-family:var(--font-caps);
+  font-size:.64rem;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+}
+.altar-caption .title-it{
+  font-family:var(--font-display);
+  font-style:italic;
+  font-size:1.15rem;
+  letter-spacing:.02em;
+  text-transform:none;
+  color:var(--ink);
+}
+.player-note{
+  position:absolute; z-index:3;
+  left:50%; bottom:9%;
+  transform:translateX(-50%);
+  font-family:var(--font-caps);
+  font-size:.6rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:#f2ecdd;
+  background:rgba(0,0,0,.55);
+  padding:.8em 1.4em;
+  opacity:0;
+  transition:opacity .5s;
+  pointer-events:none;
+  white-space:nowrap;
+}
+.player-note.is-shown{ opacity:1; }
+
+/* ============================================================
+   SALA III — GALERÍA (La exposición)
+   ============================================================ */
+.expo{
+  width:var(--w-wide);
+  margin:0 auto;
+  columns:3;
+  column-gap:2.6vw;
+  counter-reset: obra;
+}
+.obra{
+  position:relative;
+  counter-increment: obra;
+  cursor:pointer;
+  break-inside:avoid;
+  margin:0 0 5.5vh;
+  width:100%;
+}
+
+.obra .frame{
+  overflow:hidden;
+  background:var(--bg-raised);
+  border:1px solid var(--line);
+}
+/* La foto entera, a su proporción natural: nunca se recorta */
+.obra img{
+  width:100%;
+  height:auto;
+  filter:var(--img-dim);
+  transform:scale(1.001);
+  transition: filter 1s var(--ease), transform 1.6s var(--ease);
+}
+
+/* La iluminación: la obra despierta bajo el cursor */
+.obra:hover img, .obra:focus-visible img{
+  filter:brightness(1.04) saturate(1.02);
+  transform:scale(1.045);
+}
+
+.obra figcaption{
+  display:flex; align-items:baseline; gap:1.2em;
+  margin-top:1rem;
+  font-family:var(--font-caps);
+  font-size:.62rem;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+  transition: color .5s var(--ease);
+}
+.obra figcaption::before{
+  content:"Nº " counter(obra, decimal-leading-zero);
+  color:var(--gold-deep);
+  letter-spacing:.18em;
+  transition: color .5s var(--ease);
+}
+.obra figcaption .cap-rule{
+  flex:1;
+  height:1px;
+  background:var(--line);
+  transform:scaleX(0);
+  transform-origin:left;
+  transition: transform .8s var(--ease);
+}
+.obra:hover figcaption{ color:var(--ink-soft); }
+.obra:hover figcaption::before{ color:var(--gold); }
+.obra:hover .cap-rule{ transform:scaleX(1); }
+
+/* Revelado por scroll dentro de la exposición */
+.obra{ opacity:0; transform:translateY(44px); }
+.obra .frame{ clip-path:inset(8% 5% 8% 5%); transition: clip-path 1.3s var(--ease); }
+.obra.is-seen{
+  opacity:1; transform:none;
+  transition: opacity 1.1s var(--ease), transform 1.1s var(--ease);
+}
+.obra.is-seen .frame{ clip-path:inset(0 0 0 0); }
+
+.expo-outro{
+  width:var(--w);
+  margin:12vh auto 0;
+  text-align:center;
+  font-style:italic;
+  font-size:1.15rem;
+  color:var(--ink-faint);
+}
+
+/* Lightbox: contemplación */
+.lightbox{
+  position:fixed; inset:0; z-index:1500;
+  background:var(--veil);
+  -webkit-backdrop-filter:blur(18px);
+  backdrop-filter:blur(18px);
+  display:grid;
+  grid-template-rows:1fr auto;
+  padding:6vh 5vw 4vh;
+  visibility:hidden; opacity:0;
+  transition: opacity .55s var(--ease), visibility .55s;
+}
+.lightbox.is-open{ visibility:visible; opacity:1; }
+.lightbox .stage{
+  display:grid; place-items:center;
+  min-height:0;
+}
+.lightbox .stage img{
+  max-width:min(92vw, 1200px);
+  max-height:76vh;
+  width:auto;
+  object-fit:contain;
+  box-shadow:var(--shadow);
+  transform:scale(.965);
+  opacity:0;
+  transition: transform .7s var(--ease), opacity .5s var(--ease);
+}
+.lightbox.is-open .stage img{ transform:scale(1); opacity:1; }
+.lightbox .lb-bar{
+  display:flex; justify-content:center; align-items:center;
+  gap:3rem;
+  padding-top:3vh;
+  font-family:var(--font-caps);
+  font-size:.66rem;
+  letter-spacing:.3em;
+  color:var(--ink-soft);
+}
+.lb-bar button{
+  padding:.6em 1em;
+  letter-spacing:.3em;
+  text-transform:uppercase;
+  font-size:.66rem;
+  font-family:var(--font-caps);
+  color:var(--ink-soft);
+  transition:color .35s;
+}
+.lb-bar button:hover{ color:var(--gold); }
+.lb-close{
+  position:absolute; top:4vh; right:5vw;
+  font-size:1rem !important;
+  letter-spacing:.1em !important;
+}
+
+/* ============================================================
+   SALA IV — TRAYECTORIA (Currículum)
+   ============================================================ */
+.cv-grid{
+  width:var(--w);
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:minmax(240px, 4fr) 7fr;
+  gap:6vw;
+  align-items:start;
+}
+.cv-aside{
+  position:sticky;
+  top:120px;
+}
+.cv-aside .statement{
+  font-size:clamp(1.15rem, 1.6vw, 1.4rem);
+  font-style:italic;
+  line-height:1.6;
+  color:var(--ink);
+  max-width:16em;
+}
+.cv-meta{
+  margin-top:2.4rem;
+  display:grid; gap:.85rem;
+}
+.cv-meta div{
+  display:flex; justify-content:space-between; gap:1.5rem;
+  padding-bottom:.85rem;
+  border-bottom:1px solid var(--line);
+  font-size:.95rem;
+}
+.cv-meta span{
+  font-family:var(--font-caps);
+  font-size:.6rem;
+  letter-spacing:.26em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+  padding-top:.35em;
+}
+.cv-meta strong{ font-weight:500; text-align:right; }
+
+.btn-pdf{
+  margin-top:2.6rem;
+  display:inline-flex; align-items:center; gap:1em;
+  padding:1em 2.1em;
+  border:1px solid var(--line-strong);
+  font-family:var(--font-caps);
+  font-size:.64rem;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--ink);
+  transition: border-color .45s var(--ease), color .45s var(--ease), background-color .45s var(--ease);
+}
+.btn-pdf .dl{
+  display:inline-block;
+  transition:transform .45s var(--ease);
+}
+.btn-pdf:hover{
+  border-color:var(--gold);
+  color:var(--gold-bright);
+}
+.btn-pdf:hover .dl{ transform:translateY(4px); }
+
+.cv-flow{ display:grid; gap:5.5rem; }
+.cv-block h2{
+  font-family:var(--font-caps);
+  font-size:.66rem;
+  font-weight:400;
+  letter-spacing:.34em;
+  text-transform:uppercase;
+  color:var(--gold);
+  display:flex; align-items:center; gap:1.6em;
+  margin-bottom:2.2rem;
+}
+.cv-block h2 .rule{ flex:1; }
+
+.cv-item{
+  display:grid;
+  grid-template-columns:1fr auto;
+  align-items:baseline;
+  column-gap:2rem;
+  padding:1.15rem 0;
+  border-bottom:1px solid var(--line);
+}
+.cv-item:first-of-type{ border-top:1px solid var(--line); }
+.cv-item .work{
+  font-size:clamp(1.25rem, 2vw, 1.6rem);
+  font-weight:500;
+  line-height:1.25;
+}
+.cv-item .role{
+  font-style:italic;
+  color:var(--gold);
+  font-size:1.05rem;
+  text-align:right;
+  white-space:nowrap;
+}
+.cv-item .credit{
+  grid-column:1 / -1;
+  margin-top:.3rem;
+  font-family:var(--font-caps);
+  font-size:.62rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+}
+
+.cv-cols{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1.15rem 3rem;
+}
+.cv-cols .cv-item{ grid-template-columns:1fr; }
+.cv-cols .cv-item .role{ text-align:left; margin-top:.15rem; }
+
+.skill-list{
+  list-style:none;
+  columns:2;
+  column-gap:3rem;
+}
+.skill-list li{
+  break-inside:avoid;
+  padding:.8rem 0;
+  border-bottom:1px solid var(--line);
+  font-size:1.1rem;
+}
+.skill-list li small{
+  display:block;
+  font-family:var(--font-caps);
+  font-size:.58rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+  margin-top:.25em;
+}
+
+/* ============================================================
+   SALA V — CONTACTO (El cierre)
+   ============================================================ */
+#contacto{
+  display:flex; flex-direction:column;
+}
+.cierre{
+  width:var(--w);
+  margin:auto;
+}
+.mail-xl{
+  display:inline-block;
+  position:relative;
+  margin-top:2vh;
+  font-size:clamp(1.5rem, 4.6vw, 3.9rem);
+  font-weight:500;
+  letter-spacing:-.01em;
+  line-height:1.15;
+  word-break:break-word;
+}
+.mail-xl::after{
+  content:"";
+  position:absolute; left:0; bottom:-.08em;
+  width:100%; height:1px;
+  background:var(--gold);
+  transform:scaleX(0);
+  transform-origin:right;
+  transition: transform .8s var(--ease);
+}
+.mail-xl:hover::after{
+  transform:scaleX(1);
+  transform-origin:left;
+}
+.mail-hint{
+  margin-top:1.2rem;
+  font-family:var(--font-caps);
+  font-size:.6rem;
+  letter-spacing:.3em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+  min-height:1.2em;
+  transition: color .4s;
+}
+.mail-hint.is-copied{ color:var(--gold); }
+
+.plaques{
+  margin-top:8vh;
+  border-top:1px solid var(--line);
+}
+.plaque{
+  display:flex; justify-content:space-between; align-items:baseline;
+  gap:2rem;
+  padding:1.6rem 0;
+  border-bottom:1px solid var(--line);
+  transition: padding .5s var(--ease);
+}
+a.plaque:hover{ padding-left:1.2rem; }
+.plaque .k{
+  font-family:var(--font-caps);
+  font-size:.62rem;
+  letter-spacing:.3em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+}
+.plaque .v{
+  font-size:clamp(1.05rem, 1.8vw, 1.35rem);
+  font-weight:500;
+  text-align:right;
+  transition:color .4s;
+}
+a.plaque:hover .v{ color:var(--gold); }
+
+.cierre-foot{
+  width:var(--w);
+  margin:10vh auto 0;
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--font-caps);
+  font-size:.6rem;
+  letter-spacing:.3em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+}
+.cierre-foot .mono{
+  font-family:var(--font-display);
+  font-size:1.2rem;
+  letter-spacing:.06em;
+  text-transform:none;
+  color:var(--ink);
+}
+.cierre-foot .mono em{ color:var(--gold); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1020px){
+  .nav-desk .room-link{ display:none; }
+  .head-tools{ border-left:0; padding-left:0; margin-left:0; gap:1.4rem; }
+  .nav-toggle{ display:block; }
+
+  .cv-grid{ grid-template-columns:1fr; gap:5rem; }
+  .cv-aside{ position:static; }
+  .expo{ columns:2; }
+}
+
+@media (max-width: 720px){
+  body{ font-size:16.5px; }
+  .sala{ padding-top:calc(84px + 2vh); }
+
+  .expo{ columns:1; }
+  .obra{ margin-bottom:8vh; }
+
+  .altar-frame::before{ inset:-10px 10px 10px -10px; }
+  .cv-cols{ grid-template-columns:1fr; }
+  .skill-list{ columns:1; }
+  .cv-item .role{ white-space:normal; }
+  .hero{ padding-top:calc(84px + 1.5vh); }
+  .hero-frame img{ aspect-ratio:4/3; max-height:46svh; }
+  .hero-nombre{ font-size:clamp(2.7rem, 13vw, 4.4rem); }
+  .hero-wilde{ font-size:.88rem; max-width:100%; }
+  .cierre-foot{ flex-direction:column; gap:1.4em; }
+  .plaque{ flex-direction:column; gap:.45rem; align-items:flex-start; }
+  .plaque .v{ text-align:left; }
+  .lb-close{ top:2.5vh; right:6vw; }
+}
+
+@media (min-width:1021px){
+  .nav-veil{ display:none; }
+}
+
+/* ============================================================
+   MOVIMIENTO REDUCIDO
+   ============================================================ */
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+  }
+  html{ scroll-behavior:auto; }
+  .sala [data-reveal], .obra{ opacity:1; transform:none; }
+  .mask-line > span{ transform:none; }
+  .rule, .obra .frame{ transform:none; clip-path:none; }
+  .entry-veil{ display:none; }
+}
