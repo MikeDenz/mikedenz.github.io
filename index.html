@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mike Denz — Actor</title>
+<title>Mike Denz</title>
 
 <meta name="description" content="Mike Denz, actor. También conocido como Miguel Denz o Denzmike. Madrid y Asturias. Videobook, galería y trayectoria.">
 <meta name="keywords" content="Mike Denz, Miguel Denz, Denzmike, Denz actor, actor Madrid, actor Asturias, actor español, videobook">
@@ -112,7 +112,7 @@ try{
 <main id="salas">
 
   <!-- ============ SALA I · UMBRAL ============ -->
-  <section class="sala" id="home" data-route="home">
+  <section class="sala" id="home" data-route="home" hidden>
     <div class="hero">
       <figure class="hero-frame">
         <img src="img/portada.jpg" alt="Mike Denz">
@@ -137,11 +137,6 @@ try{
           </div>
           <a class="ghost-link" href="#galeria" data-route="galeria" data-i18n="home.cta2">Galería</a>
         </div>
-
-        <blockquote class="hero-wilde" data-reveal style="--i:3">
-          <span data-i18n="home.quote">«La vida imita al arte mucho más de lo que el arte imita a la vida.»</span>
-          <span class="attr">— Oscar Wilde</span>
-        </blockquote>
       </div>
     </div>
   </section>
@@ -165,7 +160,6 @@ try{
                  onerror="this.style.display='none'">
             <span class="play-ring" aria-hidden="true"></span>
           </button>
-          <div class="player-note" id="playerNote" data-i18n="vb.note">Añade tu ID de YouTube en js/app.js</div>
         </div>
       </div>
 
@@ -185,17 +179,28 @@ try{
       <h1>
         <span class="mask-line" style="--i:1"><span><span data-i18n="gal.h1a">Gale</span><em data-i18n="gal.h1b">ría</em></span></span>
       </h1>
-      <p class="lead" data-reveal style="--i:2" data-i18n="gal.lead">Retratos y cuerpo entero.</p>
     </div>
 
-    <!-- Las obras se montan desde js/app.js (edita ahí la lista de fotos) -->
-    <div class="expo" id="expo" aria-label="Galería fotográfica"></div>
+    <!-- Las fotos se montan desde js/app.js (edita ahí la lista GALLERY y sus grupos) -->
+    <div id="expoWrap" aria-label="Galería fotográfica">
+      <h2 class="expo-group" data-i18n="gal.g1">Book</h2>
+      <div class="expo" data-group="book"></div>
+      <h2 class="expo-group" data-i18n="gal.g2">Danza</h2>
+      <div class="expo" data-group="movimiento"></div>
+      <h2 class="expo-group expo-group--quiet" data-i18n="gal.g3">Editorial</h2>
+      <div class="expo" data-group="editorial"></div>
+    </div>
 
     <p class="expo-outro" data-reveal style="--i:3" data-i18n="gal.outro">Fin de la exposición.</p>
   </section>
 
   <!-- ============ SALA IV · TRAYECTORIA ============ -->
   <section class="sala" id="curriculum" data-route="curriculum" hidden>
+    <div class="cv-print-head">
+      <p class="pr-name">Mike <em>Denz</em></p>
+      <p class="pr-role" data-i18n="home.eyebrow">Actor — Madrid · Asturias</p>
+      <p class="pr-contact">mikedenz.actor@gmail.com · +34 653 051 130 · instagram.com/denzmike · denzmike.com</p>
+    </div>
     <div class="room-head">
       <p class="eyebrow" data-reveal style="--i:0">
         <span class="num">IV</span><span data-i18n="cv.eyebrow">La trayectoria</span>
@@ -207,41 +212,30 @@ try{
 
     <div class="cv-grid">
       <aside class="cv-aside" data-reveal style="--i:2">
-        <p class="statement" data-i18n="cv.statement">Formación continua, escena y cámara. Interpretación en castellano e inglés.</p>
-
         <div class="cv-meta">
+          <div><span data-i18n="cv.m4">Edad aparente</span><strong data-i18n="cv.m4v">18 – 25 años</strong></div>
+          <div><span data-i18n="cv.m5">Altura</span><strong>168 cm</strong></div>
+          <div><span data-i18n="cv.m6">Ojos</span><strong data-i18n="cv.m6v">Marrones</strong></div>
+          <div><span data-i18n="cv.m7">Pelo</span><strong data-i18n="cv.m7v">Castaño</strong></div>
+          <div><span data-i18n="cv.m2">Idiomas</span><strong data-i18n="cv.m2v">Español · Inglés C1 · Francés B2</strong></div>
           <div><span data-i18n="cv.m1">Residencia</span><strong data-i18n="foot.place">Madrid — Asturias</strong></div>
-          <div><span data-i18n="cv.m2">Idiomas</span><strong data-i18n="cv.m2v">Español · Inglés C1 · Francés</strong></div>
-          <div><span data-i18n="cv.m3">Técnica</span><strong>Stanislavski · Adler · Chubbuck · Chéjov</strong></div>
         </div>
 
-        <a class="btn-pdf" href="docs/CV_MikeDenz_2026.pdf" download>
+        <button type="button" class="btn-pdf" id="cvPrint">
           <span data-i18n="cv.pdf">Descargar CV</span>
           <span class="dl" aria-hidden="true">↓</span>
-        </a>
+        </button>
       </aside>
 
       <div class="cv-flow">
         <div class="cv-block" data-reveal style="--i:3">
-          <h2><span data-i18n="cv.b1">Audiovisual</span><span class="rule" style="--i:3"></span></h2>
-          <div class="cv-item">
-            <span class="work">El actor</span><span class="role">Miguel</span>
-            <span class="credit" data-i18n="cv.c1">Dir. Mike Denz — Independiente</span>
-          </div>
-          <div class="cv-item">
-            <span class="work">Anna</span><span class="role" data-i18n="cv.r2">Secundario</span>
-            <span class="credit" data-i18n="cv.c2">Dir. Pablo García — CISLAN · Cortometraje</span>
-          </div>
-        </div>
-
-        <div class="cv-block" data-reveal style="--i:4">
-          <h2><span data-i18n="cv.b2">Teatro</span><span class="rule" style="--i:4"></span></h2>
+          <h2><span data-i18n="cv.b2">Teatro</span><span class="rule" style="--i:3"></span></h2>
           <div class="cv-item">
             <span class="work">El desván</span><span class="role" data-i18n="cv.r3">Reparto principal</span>
             <span class="credit" data-i18n="cv.c3">Dir. Patricia Caso, Mario Villar — Teatro Joven Avilés</span>
           </div>
           <div class="cv-item">
-            <span class="work">Glengarry Glen Ross</span><span class="role" data-i18n="cv.r4">Secundario</span>
+            <span class="work">Glengarry Glen Ross (David Mamet)</span><span class="role" data-i18n="cv.r4">Secundario</span>
             <span class="credit" data-i18n="cv.c4">Dir. Cristina Puertas — Factoría Cultural</span>
           </div>
           <div class="cv-item">
@@ -249,8 +243,20 @@ try{
             <span class="credit" data-i18n="cv.c4">Dir. Cristina Puertas — Factoría Cultural</span>
           </div>
           <div class="cv-item">
-            <span class="work">El enfermo imaginario</span><span class="role">Argán</span>
-            <span class="credit" data-i18n="cv.c6">de Molière</span>
+            <span class="work">El enfermo imaginario (Molière)</span><span class="role" data-i18n="cv.r6">Protagonista (Argán)</span>
+            <span class="credit" data-i18n="cv.c4">Dir. Cristina Puertas — Factoría Cultural</span>
+          </div>
+        </div>
+
+        <div class="cv-block" data-reveal style="--i:4">
+          <h2><span data-i18n="cv.b1">Audiovisual</span><span class="rule" style="--i:4"></span></h2>
+          <div class="cv-item">
+            <span class="work">El actor</span><span class="role" data-i18n="cv.r1">Protagonista</span>
+            <span class="credit" data-i18n="cv.c1">Dir. Mike Denz (Cortometraje independiente)</span>
+          </div>
+          <div class="cv-item">
+            <span class="work">Anna</span><span class="role" data-i18n="cv.r2">Secundario</span>
+            <span class="credit" data-i18n="cv.c2">Dir. Pablo García — CISLAN · Cortometraje</span>
           </div>
         </div>
 
@@ -259,38 +265,48 @@ try{
           <div class="cv-cols">
             <div class="cv-item">
               <span class="work">Javier Molina</span>
-              <span class="role" data-i18n="cv.f1">Interpretación · Actors Studio</span>
-            </div>
-            <div class="cv-item">
-              <span class="work">Bernard Hiller</span>
-              <span class="role" data-i18n="cv.f2">Masterclass internacional</span>
+              <span class="role" data-i18n="cv.f1">Entrenamiento actoral · Actors Studio</span>
             </div>
             <div class="cv-item">
               <span class="work">Lidia Otón</span>
               <span class="role" data-i18n="cv.f3">Técnica Chéjov</span>
             </div>
             <div class="cv-item">
-              <span class="work">Natalia Cooper</span>
-              <span class="role" data-i18n="cv.f5">Interpretación e improvisación</span>
+              <span class="work">Rodrigo Arribas</span>
+              <span class="role" data-i18n="cv.f7">Verso · Fundación Siglo de Oro</span>
+            </div>
+            <div class="cv-item">
+              <span class="work">Bernard Hiller</span>
+              <span class="role" data-i18n="cv.f2">Masterclass internacional</span>
             </div>
             <div class="cv-item">
               <span class="work">Eliana Ghen</span>
               <span class="role" data-i18n="cv.f6">Interpretación ante la cámara</span>
             </div>
             <div class="cv-item">
+              <span class="work">Natalia Cooper</span>
+              <span class="role" data-i18n="cv.f5">Interpretación e improvisación</span>
+            </div>
+            <div class="cv-item">
               <span class="work">Cristina Puertas</span>
-              <span class="role" data-i18n="cv.f4">Teatro — Factoría Cultural</span>
+              <span class="role" data-i18n="cv.f4">Formación base de teatro · Factoría Cultural</span>
             </div>
           </div>
         </div>
 
         <div class="cv-block" data-reveal style="--i:6">
-          <h2><span data-i18n="cv.b4">Danza y habilidades</span><span class="rule" style="--i:6"></span></h2>
+          <h2><span data-i18n="cv.b4">Danza y Movimiento</span><span class="rule" style="--i:6"></span></h2>
           <ul class="skill-list">
-            <li><span data-i18n="cv.s1">Danza moderna</span><small data-i18n="cv.s1n">Docencia en escuelas</small></li>
-            <li data-i18n="cv.s2">Ballet clásico</li>
-            <li><span data-i18n="cv.s3">Equitación</span><small data-i18n="cv.sbn">Nociones básicas</small></li>
-            <li><span data-i18n="cv.s4">Escalada</span><small data-i18n="cv.sbn2">Nociones básicas</small></li>
+            <li><span data-i18n="cv.s1">Danza Contemporánea</span><small data-i18n="cv.s1n">Nivel avanzado y docencia</small></li>
+            <li><span data-i18n="cv.s2">Danza Urbana / Commercial</span><small data-i18n="cv.s2n">Nivel avanzado y docencia</small></li>
+            <li><span data-i18n="cv.s3">Ballet Clásico</span><small data-i18n="cv.s3n">Nivel intermedio</small></li>
+          </ul>
+        </div>
+
+        <div class="cv-block" data-reveal style="--i:7">
+          <h2><span data-i18n="cv.b5">Habilidades</span><span class="rule" style="--i:7"></span></h2>
+          <ul class="skill-list">
+            <li data-i18n="cv.s4">Escalada</li>
             <li><span data-i18n="cv.s5">Carnet de conducir</span><small>B</small></li>
           </ul>
         </div>

@@ -14,23 +14,32 @@ const VIDEO = {
   mp4: ''
 };
 
+/* Salas ocultas temporalmente. Mientras 'videobook' esté en esta lista,
+   la sala y su enlace del menú desaparecen, y el botón principal del
+   Inicio lleva a la Galería. Cuando tengas el vídeo: pega el enlace en
+   VIDEO (arriba) y deja la lista vacía → const SALAS_OCULTAS = [];  */
+const SALAS_OCULTAS = ['videobook'];
+
 /* Galería: edita esta lista con tus archivos reales dentro de /img.
-   Si alguna foto no existe en el servidor, su hueco desaparece solo
-   y la numeración del catálogo se recompone. */
+   group = en qué bloque se muestra: 'book' (Book / Casting),
+   'movimiento' (Movimiento) o 'editorial' (Editorial, al final).
+   cap = descripción interna de la foto (no se muestra: solo se usa
+   como texto alternativo para accesibilidad).
+   Para quitar una foto de la web, borra su línea.
+   Si una foto no existe en el servidor, su hueco desaparece solo. */
 const GALLERY = [
-  { src: 'img/galeria-01.jpg', cap: { es: 'Retrato de estudio', en: 'Studio headshot' } },
-  { src: 'img/galeria-02.jpg', cap: { es: 'Retrato natural',    en: 'Natural portrait' } },
-  { src: 'img/galeria-03.jpg', cap: { es: 'Retrato — sonrisa',  en: 'Portrait — smile' } },
-  { src: 'img/galeria-04.jpg', cap: { es: 'Perfil',             en: 'Profile' } },
-  { src: 'img/galeria-05.jpg', cap: { es: 'Medio cuerpo',       en: 'Half body' } },
-  { src: 'img/galeria-06.jpg', cap: { es: 'Risa',               en: 'Laughter' } },
-  { src: 'img/galeria-07.jpg', cap: { es: 'Cuerpo entero',      en: 'Full body' } },
-  { src: 'img/galeria-08.jpg', cap: { es: 'Editorial',          en: 'Editorial' } },
-  { src: 'img/galeria-09.jpg', cap: { es: 'Editorial',          en: 'Editorial' } },
-  { src: 'img/galeria-10.jpg', cap: { es: 'Editorial',          en: 'Editorial' } },
-  { src: 'img/galeria-11.jpg', cap: { es: 'Editorial',          en: 'Editorial' } },
-  { src: 'img/galeria-12.jpg', cap: { es: 'Danza',              en: 'Dance' } },
-  { src: 'img/galeria-13.jpg', cap: { es: 'Danza',              en: 'Dance' } }
+  { src: 'img/galeria-02.jpg', group: 'book',       cap: { es: 'Retrato natural',    en: 'Natural portrait' } },
+  { src: 'img/galeria-03.jpg', group: 'book',       cap: { es: 'Retrato — sonrisa',  en: 'Portrait — smile' } },
+  { src: 'img/galeria-04.jpg', group: 'book',       cap: { es: 'Perfil',             en: 'Profile' } },
+  { src: 'img/galeria-06.jpg', group: 'book',       cap: { es: 'Risa',               en: 'Laughter' } },
+  { src: 'img/galeria-07.jpg', group: 'book',       cap: { es: 'Cuerpo entero',      en: 'Full body' } },
+  { src: 'img/galeria-12.jpg', group: 'movimiento', cap: { es: 'Danza',              en: 'Dance' } },
+  { src: 'img/galeria-13.jpg', group: 'movimiento', cap: { es: 'Danza',              en: 'Dance' } },
+  { src: 'img/galeria-08.jpg', group: 'editorial',  cap: { es: 'Editorial',          en: 'Editorial' } },
+  { src: 'img/galeria-09.jpg', group: 'editorial',  cap: { es: 'Editorial',          en: 'Editorial' } },
+  { src: 'img/galeria-10.jpg', group: 'editorial',  cap: { es: 'Editorial',          en: 'Editorial' } },
+  { src: 'img/galeria-11.jpg', group: 'editorial',  cap: { es: 'Editorial',          en: 'Editorial' } },
+  { src: 'img/galeria-05.jpg', group: 'editorial',  cap: { es: 'Medio cuerpo',       en: 'Half body' } }
 ];
 
 /* Plataformas de casting (opcional). Descomenta y rellena:
@@ -47,8 +56,8 @@ const I18N = {
     'nav.home': 'Inicio', 'nav.videobook': 'Videobook', 'nav.galeria': 'Galería',
     'nav.curriculum': 'Trayectoria', 'nav.contacto': 'Contacto',
     'home.eyebrow': 'Actor — Madrid · Asturias',
-    'home.quote': '«La vida imita al arte mucho más de lo que el arte imita a la vida.»',
     'home.cta': 'Ver videobook',
+    'home.cta.gal': 'Ver galería',
     'home.cta2': 'Galería',
     'vb.eyebrow': 'Material de casting', 'vb.h1a': 'Video', 'vb.h1b': 'book',
     'vb.note': 'Añade tu enlace de Vimeo en js/app.js',
@@ -57,23 +66,28 @@ const I18N = {
     'gal.eyebrow': 'La exposición', 'gal.h1a': 'Gale', 'gal.h1b': 'ría',
     'gal.lead': 'Retratos y cuerpo entero.',
     'gal.outro': 'Fin de la exposición.',
+    'gal.g1': 'Book', 'gal.g2': 'Danza', 'gal.g3': 'Editorial',
     'cv.eyebrow': 'La trayectoria', 'cv.h1a': 'Trayec', 'cv.h1b': 'toria',
     'cv.statement': 'Formación continua, escena y cámara. Interpretación en castellano e inglés.',
-    'cv.m1': 'Residencia', 'cv.m2': 'Idiomas', 'cv.m2v': 'Español · Inglés C1 · Francés', 'cv.m3': 'Técnica',
+    'cv.m1': 'Residencia', 'cv.m2': 'Idiomas', 'cv.m2v': 'Español · Inglés C1 · Francés B2',
+    'cv.m4': 'Edad aparente', 'cv.m4v': '18 – 25 años', 'cv.m5': 'Altura',
+    'cv.m6': 'Ojos', 'cv.m6v': 'Marrones', 'cv.m7': 'Pelo', 'cv.m7v': 'Castaño',
     'cv.pdf': 'Descargar CV',
-    'cv.b1': 'Audiovisual', 'cv.b2': 'Teatro', 'cv.b3': 'Formación', 'cv.b4': 'Danza y habilidades',
-    'cv.c1': 'Dir. Mike Denz — Independiente',
+    'cv.b1': 'Audiovisual', 'cv.b2': 'Teatro', 'cv.b3': 'Formación', 'cv.b4': 'Danza y Movimiento', 'cv.b5': 'Habilidades',
+    'cv.c1': 'Dir. Mike Denz (Cortometraje independiente)',
     'cv.c2': 'Dir. Pablo García — CISLAN · Cortometraje',
     'cv.c3': 'Dir. Patricia Caso, Mario Villar — Teatro Joven Avilés',
     'cv.c4': 'Dir. Cristina Puertas — Factoría Cultural',
-    'cv.c6': 'de Molière',
-    'cv.r2': 'Secundario', 'cv.r3': 'Reparto principal', 'cv.r4': 'Secundario',
-    'cv.f1': 'Interpretación · Actors Studio', 'cv.f2': 'Masterclass internacional',
-    'cv.f3': 'Técnica Chéjov', 'cv.f4': 'Teatro — Factoría Cultural',
+    'cv.r1': 'Protagonista', 'cv.r2': 'Secundario', 'cv.r3': 'Reparto principal', 'cv.r4': 'Secundario',
+    'cv.r6': 'Protagonista (Argán)',
+    'cv.f1': 'Entrenamiento actoral · Actors Studio', 'cv.f2': 'Masterclass internacional',
+    'cv.f3': 'Técnica Chéjov', 'cv.f4': 'Formación base de teatro · Factoría Cultural',
     'cv.f5': 'Interpretación e improvisación', 'cv.f6': 'Interpretación ante la cámara',
-    'cv.s1': 'Danza moderna', 'cv.s1n': 'Docencia en escuelas',
-    'cv.s2': 'Ballet clásico', 'cv.s3': 'Equitación', 'cv.s4': 'Escalada', 'cv.s5': 'Carnet de conducir',
-    'cv.sbn': 'Nociones básicas', 'cv.sbn2': 'Nociones básicas',
+    'cv.f7': 'Verso · Fundación Siglo de Oro',
+    'cv.s1': 'Danza Contemporánea', 'cv.s1n': 'Nivel avanzado y docencia',
+    'cv.s2': 'Danza Urbana / Commercial', 'cv.s2n': 'Nivel avanzado y docencia',
+    'cv.s3': 'Ballet Clásico', 'cv.s3n': 'Nivel intermedio',
+    'cv.s4': 'Escalada', 'cv.s5': 'Carnet de conducir', 'cv.s6': 'Acrobacia / Control corporal',
     'ct.eyebrow': 'Hablemos', 'ct.h1a': 'Con', 'ct.h1b': 'tacto',
     'ct.lead': 'Disponible para casting, cine y escena.',
     'ct.copy': 'El clic copia la dirección', 'ct.copied': 'Copiada —',
@@ -86,8 +100,8 @@ const I18N = {
     'nav.home': 'Home', 'nav.videobook': 'Showreel', 'nav.galeria': 'Gallery',
     'nav.curriculum': 'Résumé', 'nav.contacto': 'Contact',
     'home.eyebrow': 'Actor — Madrid · Asturias',
-    'home.quote': '“Life imitates Art far more than Art imitates Life.”',
     'home.cta': 'Watch showreel',
+    'home.cta.gal': 'View gallery',
     'home.cta2': 'Gallery',
     'vb.eyebrow': 'Casting material', 'vb.h1a': 'Show', 'vb.h1b': 'reel',
     'vb.note': 'Add your Vimeo link in js/app.js',
@@ -96,23 +110,28 @@ const I18N = {
     'gal.eyebrow': 'The exhibition', 'gal.h1a': 'Gall', 'gal.h1b': 'ery',
     'gal.lead': 'Portraits and full body.',
     'gal.outro': 'End of the exhibition.',
+    'gal.g1': 'Book', 'gal.g2': 'Dance', 'gal.g3': 'Editorial',
     'cv.eyebrow': 'The trajectory', 'cv.h1a': 'Rés', 'cv.h1b': 'umé',
     'cv.statement': 'Ongoing training, stage and camera. Performing in Spanish and English.',
-    'cv.m1': 'Based in', 'cv.m2': 'Languages', 'cv.m2v': 'Spanish · English C1 · French', 'cv.m3': 'Technique',
+    'cv.m1': 'Based in', 'cv.m2': 'Languages', 'cv.m2v': 'Spanish · English C1 · French B2',
+    'cv.m4': 'Playing age', 'cv.m4v': '18 – 25 years', 'cv.m5': 'Height',
+    'cv.m6': 'Eyes', 'cv.m6v': 'Brown', 'cv.m7': 'Hair', 'cv.m7v': 'Brown',
     'cv.pdf': 'Download CV',
-    'cv.b1': 'Film & TV', 'cv.b2': 'Theatre', 'cv.b3': 'Training', 'cv.b4': 'Dance & skills',
-    'cv.c1': 'Dir. Mike Denz — Independent',
+    'cv.b1': 'Film & TV', 'cv.b2': 'Theatre', 'cv.b3': 'Training', 'cv.b4': 'Dance & Movement', 'cv.b5': 'Skills',
+    'cv.c1': 'Dir. Mike Denz (Independent short film)',
     'cv.c2': 'Dir. Pablo García — CISLAN · Short film',
     'cv.c3': 'Dir. Patricia Caso, Mario Villar — Teatro Joven Avilés',
     'cv.c4': 'Dir. Cristina Puertas — Factoría Cultural',
-    'cv.c6': 'by Molière',
-    'cv.r2': 'Supporting', 'cv.r3': 'Principal cast', 'cv.r4': 'Supporting',
-    'cv.f1': 'Acting · Actors Studio', 'cv.f2': 'International masterclass',
-    'cv.f3': 'Chekhov technique', 'cv.f4': 'Theatre — Factoría Cultural',
+    'cv.r1': 'Lead', 'cv.r2': 'Supporting', 'cv.r3': 'Principal cast', 'cv.r4': 'Supporting',
+    'cv.r6': 'Lead (Argan)',
+    'cv.f1': 'Acting training · Actors Studio', 'cv.f2': 'International masterclass',
+    'cv.f3': 'Chekhov technique', 'cv.f4': 'Core theatre training · Factoría Cultural',
     'cv.f5': 'Acting & improvisation', 'cv.f6': 'On-camera acting',
-    'cv.s1': 'Modern dance', 'cv.s1n': 'Teaching in schools',
-    'cv.s2': 'Classical ballet', 'cv.s3': 'Horse riding', 'cv.s4': 'Climbing', 'cv.s5': 'Driving licence',
-    'cv.sbn': 'Basic level', 'cv.sbn2': 'Basic level',
+    'cv.f7': 'Verse · Fundación Siglo de Oro',
+    'cv.s1': 'Contemporary dance', 'cv.s1n': 'Advanced level and teaching',
+    'cv.s2': 'Urban / Commercial dance', 'cv.s2n': 'Advanced level and teaching',
+    'cv.s3': 'Classical ballet', 'cv.s3n': 'Intermediate level',
+    'cv.s4': 'Climbing', 'cv.s5': 'Driving licence', 'cv.s6': 'Acrobatics / Body control',
     'ct.eyebrow': 'Let’s talk', 'ct.h1a': 'Con', 'ct.h1b': 'tact',
     'ct.lead': 'Available for casting, film and stage.',
     'ct.copy': 'Click copies the address', 'ct.copied': 'Copied —',
@@ -190,11 +209,6 @@ const ARIA = {
       const k = el.getAttribute('data-i18n');
       if (dict[k] != null) el.textContent = dict[k];
     });
-    /* Rótulos de la galería */
-    $$('.obra .cap-label').forEach(function (el) {
-      const i = Number(el.getAttribute('data-idx'));
-      if (GALLERY[i]) el.textContent = GALLERY[i].cap[lang];
-    });
     const a = ARIA[lang];
     langBtns.forEach(function (b) {
       b.textContent = lang === 'es' ? 'EN' : 'ES';
@@ -235,6 +249,33 @@ const ARIA = {
   navToggle.addEventListener('click', function () {
     setMenu(!navVeil.classList.contains('is-open'));
   });
+
+  /* ---------- Salas ocultas (ver SALAS_OCULTAS arriba) ---------- */
+  SALAS_OCULTAS.forEach(function (r) {
+    $$('.sala[data-route="' + r + '"], .room-link[data-route="' + r + '"]').forEach(function (el) { el.remove(); });
+  });
+  if (SALAS_OCULTAS.indexOf('videobook') !== -1) {
+    /* El botón principal del Inicio lleva a la Galería y se quita el enlace duplicado */
+    const cta = $('.magnet-btn');
+    if (cta) {
+      cta.setAttribute('href', '#galeria');
+      cta.setAttribute('data-route', 'galeria');
+      const lbl = $('.lbl', cta);
+      if (lbl) lbl.setAttribute('data-i18n', 'home.cta.gal');
+    }
+    const ghost = $('.ghost-link');
+    if (ghost) ghost.remove();
+  }
+
+  /* ---------- Numeración romana automática (se recompone sola) ---------- */
+  (function numerals() {
+    const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'];
+    $$('.sala').forEach(function (sala, i) {
+      $$('.room-link[data-route="' + sala.dataset.route + '"] .rn').forEach(function (el) { el.textContent = ROMAN[i]; });
+      const num = $('.eyebrow .num', sala);
+      if (num) num.textContent = ROMAN[i];
+    });
+  })();
 
   /* ---------- Router de salas ---------- */
   const salas = {};
@@ -401,7 +442,7 @@ const ARIA = {
   })();
 
   /* ---------- Galería + lightbox ---------- */
-  const expo = $('#expo');
+  const expo = $('#expoWrap');
   const seer = ('IntersectionObserver' in window) && !reduced
     ? new IntersectionObserver(function (entries) {
         entries.forEach(function (en) {
@@ -413,7 +454,9 @@ const ARIA = {
       }, { threshold: 0.15, rootMargin: '0px 0px -6%' })
     : null;
 
-  GALLERY.forEach(function (item, i) {
+  GALLERY.forEach(function (item) {
+    const box = $('.expo[data-group="' + (item.group || 'book') + '"]', expo);
+    if (!box) return;
     const fig = document.createElement('figure');
     fig.className = 'obra';
     fig.tabIndex = 0;
@@ -421,9 +464,7 @@ const ARIA = {
     fig.innerHTML =
       '<div class="frame">' +
         '<img src="' + item.src + '" alt="Mike Denz — ' + item.cap.es + '" loading="lazy" decoding="async">' +
-      '</div>' +
-      '<figcaption><span class="cap-label" data-idx="' + i + '">' + item.cap[lang] + '</span>' +
-      '<span class="cap-rule" aria-hidden="true"></span></figcaption>';
+      '</div>';
 
     const img = $('img', fig);
     img.addEventListener('error', function () { fig.remove(); });
@@ -433,8 +474,16 @@ const ARIA = {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(fig); }
     });
 
-    expo.appendChild(fig);
+    box.appendChild(fig);
     if (seer) seer.observe(fig); else fig.classList.add('is-seen');
+  });
+
+  /* Si un grupo se queda sin fotos, se quita también su subtítulo */
+  $$('.expo[data-group]', expo).forEach(function (box) {
+    if (box.children.length) return;
+    const h = box.previousElementSibling;
+    if (h && h.classList.contains('expo-group')) h.remove();
+    box.remove();
   });
 
   /* Lightbox */
@@ -532,6 +581,26 @@ const ARIA = {
         }, 2600);
       }).catch(function () { /* silencio: el mailto ya se abre */ });
     });
+  })();
+
+  /* ---------- CV: guardar como PDF (impresión) ---------- */
+  (function cvPdf() {
+    const btn = $('#cvPrint');
+    let oldTitle = null;
+
+    function before() {
+      if (current !== 'curriculum') return;
+      if (oldTitle === null) oldTitle = document.title;
+      document.title = 'CV_MikeDenz_' + new Date().getFullYear(); /* nombre del archivo */
+      document.body.classList.add('print-cv');
+    }
+    function after() {
+      document.body.classList.remove('print-cv');
+      if (oldTitle !== null) { document.title = oldTitle; oldTitle = null; }
+    }
+    window.addEventListener('beforeprint', before);
+    window.addEventListener('afterprint', after);
+    if (btn) btn.addEventListener('click', function () { before(); window.print(); });
   })();
 
   /* ---------- Estado inicial ---------- */

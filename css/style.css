@@ -793,6 +793,23 @@ html[data-theme="light"] .poster::after{
   color:var(--ink-faint);
 }
 
+/* Subtítulos sutiles de la exposición (Book · Movimiento · Editorial) */
+.expo-group{
+  width:var(--w-wide);
+  margin:9vh auto 4.5vh;
+  display:flex; align-items:center; gap:1.4em;
+  font-family:var(--font-caps);
+  font-style:normal;
+  font-weight:400;
+  font-size:.62rem;
+  letter-spacing:.32em;
+  text-transform:uppercase;
+  color:var(--gold-deep);
+}
+.expo-group::after{ content:""; flex:1; height:1px; background:var(--line); }
+.expo-group:first-child{ margin-top:0; }
+.expo-group--quiet{ color:var(--ink-faint); }
+
 /* Lightbox: contemplación */
 .lightbox{
   position:fixed; inset:0; z-index:1500;
@@ -869,7 +886,7 @@ html[data-theme="light"] .poster::after{
   max-width:16em;
 }
 .cv-meta{
-  margin-top:2.4rem;
+  margin-top:0;
   display:grid; gap:.85rem;
 }
 .cv-meta div{
@@ -1126,4 +1143,81 @@ a.plaque:hover .v{ color:var(--gold); }
   .mask-line > span{ transform:none; }
   .rule, .obra .frame{ transform:none; clip-path:none; }
   .entry-veil{ display:none; }
+}
+
+/* ============================================================
+   CV PARA IMPRESIÓN / PDF  (botón "Descargar CV")
+   ============================================================ */
+.cv-print-head{ display:none; }
+
+@media print{
+  /* Margen de página a 0: así el navegador no imprime fecha, título ni URL.
+     Los márgenes reales se dan con el padding del body. */
+  @page{ size:A4; margin:0; }
+
+  /* Siempre en papel claro, sea cual sea el tema activo */
+  html[data-theme="dark"], html[data-theme="light"]{
+    --bg:#fff; --bg-raised:#fff;
+    --ink:#181510; --ink-soft:#4a443a; --ink-faint:#6b6455;
+    --gold:#8a6a26; --gold-bright:#8a6a26; --gold-deep:#8a6a26;
+    --line:rgba(24,21,16,.22); --line-strong:rgba(24,21,16,.4);
+    background:#fff; color-scheme:light;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+
+  body.print-cv{
+    background:#fff; font-size:10pt; line-height:1.35;
+    min-height:0; transition:none;
+    padding:12mm 15mm;
+  }
+
+  /* Fuera todo lo que no es el CV */
+  body.print-cv > .grain,
+  body.print-cv > .entry-veil,
+  body.print-cv > .filament,
+  body.print-cv > .site-head,
+  body.print-cv > .nav-veil,
+  body.print-cv > .lightbox,
+  body.print-cv > a.eyebrow,
+  body.print-cv .sala:not(#curriculum),
+  body.print-cv #curriculum .room-head,
+  body.print-cv .btn-pdf{ display:none !important; }
+
+  body.print-cv #curriculum{ padding:0; min-height:0; will-change:auto; }
+  body.print-cv #curriculum *{ transition:none !important; animation:none !important; }
+  body.print-cv #curriculum [data-reveal]{ opacity:1 !important; transform:none !important; }
+  body.print-cv #curriculum .rule{ transform:none !important; }
+
+  /* Cabecera del PDF */
+  body.print-cv .cv-print-head{
+    display:block; margin-bottom:4mm; padding-bottom:3mm;
+    border-bottom:1px solid var(--line-strong);
+  }
+  .cv-print-head .pr-name{ font-size:26pt; font-weight:500; line-height:1; letter-spacing:-.01em; }
+  .cv-print-head .pr-name em{ color:var(--gold); font-weight:400; }
+  .cv-print-head .pr-role{
+    margin-top:2mm; font-family:var(--font-caps); font-size:7.5pt;
+    letter-spacing:.28em; text-transform:uppercase; color:var(--ink-soft);
+  }
+  .cv-print-head .pr-contact{ margin-top:1.5mm; font-size:9.5pt; color:var(--ink-soft); }
+
+  /* Maquetación compacta de una sola columna */
+  body.print-cv .cv-grid{ display:block; width:100%; }
+  body.print-cv .cv-aside{ position:static; margin-bottom:4mm; }
+  body.print-cv .cv-aside .statement{ max-width:none; font-size:11pt; }
+  body.print-cv .cv-meta{ margin-top:3mm; grid-template-columns:repeat(3,1fr); gap:0 6mm; }
+  body.print-cv .cv-meta div{ flex-direction:column; justify-content:flex-start; gap:.5mm; padding-bottom:1.2mm; font-size:9.5pt; }
+  body.print-cv .cv-meta strong{ text-align:left; }
+
+  body.print-cv .cv-flow{ display:grid; grid-template-columns:1fr 1fr; gap:3.5mm 8mm; }
+  body.print-cv .cv-flow > .cv-block{ grid-column:1 / -1; }
+  body.print-cv .cv-flow > .cv-block:nth-last-child(-n+2){ grid-column:auto; }
+  body.print-cv .cv-block h2{ margin-bottom:1.5mm; break-after:avoid; }
+  body.print-cv .cv-item{ padding:1mm 0; break-inside:avoid; }
+  body.print-cv .cv-item .work{ font-size:11.5pt; }
+  body.print-cv .cv-item .role{ font-size:9.5pt; }
+  body.print-cv .cv-item .credit{ font-size:6.5pt; }
+  body.print-cv .cv-cols{ grid-template-columns:1fr 1fr; gap:0 8mm; }
+  body.print-cv .skill-list{ columns:1; }
+  body.print-cv .skill-list li{ padding:1mm 0; font-size:10.5pt; }
 }
